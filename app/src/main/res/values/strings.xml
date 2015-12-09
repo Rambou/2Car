@@ -5,4 +5,15 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!-- Intro -->
+    <string name="IntroTitle1">Welcome!</string>
+    <string name="IntroText1">We just need some permissions to start. (This is only as an example...this app doesn\'t utilize any of the perms.)</string>
+    <string name="IntroTitle2">Welcome!</string>
+    <string name="IntroTitle3">Welcome!</string>
+    <string name="IntroTitle4">Welcome!</string>
+
+    <!-- Pref-Keys -->
+    <string name="PrefName">2Car_Preferences</string>
+    <string name="IntroSeen">IntroSeen</string>
 </resources>
