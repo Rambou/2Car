@@ -8,4 +8,5 @@
     <color name="LoginButton">#b8d6cf</color>
     <color name="Register">#a91f28</color>
     <color name="LoginText">#4b4142</color>
+    <color name="RegisterMain">#E91E63</color>
 </resources>

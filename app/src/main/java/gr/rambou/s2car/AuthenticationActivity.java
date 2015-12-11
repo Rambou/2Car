@@ -2,7 +2,9 @@ package gr.rambou.s2car;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -13,14 +15,31 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.parse.SignUpCallback;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
+import java.io.ByteArrayOutputStream;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
     private EditText _emailText;
     private EditText _passwordText;
     private Button _loginButton;
+    private Button _registerButton;
     private TextView _signupLink;
+    private ImageView _avatar;
+    private EditText _regName;
+    private EditText _regSurname;
+    private EditText _regMail;
+    private EditText _regPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +55,24 @@ public class AuthenticationActivity extends AppCompatActivity {
         actionBar.hide();
 
         _loginButton = (Button) findViewById(R.id.btn_login);
+        _registerButton = (Button) findViewById(R.id.btn_signup);
         _signupLink = (TextView) findViewById(R.id.link_signup);
         _emailText = (EditText) findViewById(R.id.input_email);
         _passwordText = (EditText) findViewById(R.id.input_password);
+        _avatar = (ImageView) findViewById(R.id.profile_image);
+
+        _regName = (EditText) findViewById(R.id.register_name);
+        _regSurname = (EditText) findViewById(R.id.register_surname);
+        _regMail = (EditText) findViewById(R.id.register_email);
+        _regPassword = (EditText) findViewById(R.id.register_password);
+
+        _avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, 1888);
+            }
+        });
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +80,25 @@ public class AuthenticationActivity extends AppCompatActivity {
                 login();
             }
         });
+        _signupLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoadRegister();
+            }
+        });
+        _registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                register();
+            }
+        });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1888 && resultCode == RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            _avatar.setImageBitmap(photo);
+        }
     }
 
     public void login() {
@@ -89,17 +142,28 @@ public class AuthenticationActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        // TODO: Implement your own authentication logic here.
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        //onLoginFailed();
-                        //progressDialog.dismiss();
+        // Send data to Parse.com for verification
+        ParseUser.logInInBackground(email, password,
+                new LogInCallback() {
+                    public void done(ParseUser user, ParseException e) {
+                        if (user != null) {
+                            // If user exist and authenticated
+                            onLoginSuccess();
+                            finish();
+                        } else {
+                            //progressDialog.dismiss();
+                            onLoginFailed();
+                        }
                     }
-                }, 3000);
+                });
+
     }
+
+    public void LoadRegister() {
+        SlidingUpPanelLayout sPanel = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        sPanel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+    }
+
 
     public void onLoginSuccess() {
         Intent intent = new Intent(this, MainActivity.class);
@@ -136,6 +200,76 @@ public class AuthenticationActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    public void register() {
+        // Retrieve the text entered from the EditText
+        final String name = _regName.getText().toString();
+        final String surname = _regSurname.getText().toString();
+        final String email = _regMail.getText().toString();
+        final String password = _regPassword.getText().toString();
+        // Locate the image in res > drawable-hdpi
+        Bitmap bitmap = ((BitmapDrawable) _avatar.getDrawable()).getBitmap();
+        // Convert it to byte
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        // Compress image to lower quality scale 1 - 100
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] image = stream.toByteArray();
+
+        // Create the ParseFile
+        final ParseFile file = new ParseFile("avatar.png", image);
+
+
+        // Force user to fill up the form
+        if (email.equals("") && password.equals("")) {
+
+        } else {
+            // Upload the image into Parse Cloud
+            file.saveInBackground(new SaveCallback() {
+
+                @Override
+                public void done(ParseException e) {
+                    if (e == null) {
+                        // Save new user data into Parse.com Data Storage
+                        ParseUser user = new ParseUser();
+                        user.setUsername(email);
+                        user.setEmail(email);
+                        user.setPassword(password);
+                        user.put("Name", name);
+                        user.put("Surname", surname);
+                        user.put("Avatar", file);
+                        user.signUpInBackground(new SignUpCallback() {
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    Snackbar snackbar = Snackbar
+                                            .make(findViewById(R.id.AuthenticationLayout), "Successfully Signed up, please log in.", Snackbar.LENGTH_LONG);
+
+                                    snackbar.show();
+                                } else {
+                                    Snackbar snackbar = Snackbar
+                                            .make(findViewById(R.id.AuthenticationLayout), "Registration failed", Snackbar.LENGTH_LONG);
+
+                                    snackbar.show();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+                    } else {
+                        Snackbar snackbar = Snackbar
+                                .make(findViewById(R.id.AuthenticationLayout), "Registration failed", Snackbar.LENGTH_LONG);
+
+                        snackbar.show();
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+        }
+    }
+
+    private void parseReg() {
+
     }
 
     private boolean isNetworkAvailable() {
