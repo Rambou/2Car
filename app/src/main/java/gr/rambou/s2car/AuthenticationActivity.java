@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -27,13 +28,21 @@ import com.parse.SignUpCallback;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
+    public static final List<String> mPermissions = new ArrayList<String>() {{
+        add("public_profile");
+        add("email");
+    }};
     private EditText _emailText;
     private EditText _passwordText;
     private Button _loginButton;
     private Button _registerButton;
+    private FloatingActionButton _fbLogin;
+    private FloatingActionButton _gpLogin;
     private TextView _signupLink;
     private ImageView _avatar;
     private EditText _regName;
@@ -55,6 +64,8 @@ public class AuthenticationActivity extends AppCompatActivity {
         actionBar.hide();
 
         _loginButton = (Button) findViewById(R.id.btn_login);
+        _fbLogin = (FloatingActionButton) findViewById(R.id.fblogin);
+        _gpLogin = (FloatingActionButton) findViewById(R.id.gplogin);
         _registerButton = (Button) findViewById(R.id.btn_signup);
         _signupLink = (TextView) findViewById(R.id.link_signup);
         _emailText = (EditText) findViewById(R.id.input_email);
@@ -73,7 +84,25 @@ public class AuthenticationActivity extends AppCompatActivity {
                 startActivityForResult(cameraIntent, 1888);
             }
         });
-
+        _fbLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*ParseFacebookUtils.logInWithReadPermissionsInBackground(AuthenticationActivity.this, mPermissions, new LogInCallback() {
+                    @Override
+                    public void done(ParseUser user, ParseException err) {
+                        if (user == null) {
+                            Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
+                        } else if (user.isNew()) {
+                            Log.d("MyApp", "User signed up and logged in through Facebook!");
+                            //getUserDetailsFromFB();
+                        } else {
+                            Log.d("MyApp", "User logged in through Facebook!");
+                            //getUserDetailsFromParse();
+                        }
+                    }
+                });*/
+            }
+        });
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,6 +3,8 @@ package gr.rambou.s2car;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -19,6 +21,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +36,14 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     SharedPreferences sharedPref;
+    private ParseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Check if intro has been opened.
         sharedPref = this.getSharedPreferences(getString(R.string.PrefName), Context.MODE_PRIVATE);
-        boolean IntroSeen = sharedPref.getBoolean(getString(R.string.IntroSeen), false);
+        Boolean IntroSeen = sharedPref.getBoolean(getString(R.string.IntroSeen), false);
         if (!IntroSeen) {
             Intent intent = new Intent(this, IntroActivity.class);
             startActivity(intent);
@@ -42,7 +52,8 @@ public class MainActivity extends AppCompatActivity
         }
 
         //Check if user is logged in
-        if (true) {
+        currentUser = ParseUser.getCurrentUser();
+        if (currentUser == null) {
             Intent i = new Intent(this, AuthenticationActivity.class);
             startActivity(i);
             this.finish();
@@ -69,13 +80,32 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View drawerHeader = navigationView.getHeaderView(0);
+        TextView name = (TextView) drawerHeader.findViewById(R.id.userFullName);
+        TextView email = (TextView) drawerHeader.findViewById(R.id.userEmail);
+        final ImageView avatar = (ImageView) drawerHeader.findViewById(R.id.avatar);
         navigationView.setNavigationItemSelectedListener(this);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         if (viewPager != null) {
             setupViewPager(viewPager);
         }
+        name.setText(currentUser.get("Name") + " " + currentUser.get("Surname"));
+        email.setText(currentUser.getEmail());
 
+        ParseFile imageFile = (ParseFile) currentUser.get("Avatar");
+        imageFile.getDataInBackground(new GetDataCallback() {
+            public void done(byte[] data, ParseException e) {
+                if (e == null) {
+                    // data has the bytes for the image
+                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    avatar.setImageBitmap(bmp);
+                } else {
+                    // something went wrong
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -101,6 +131,12 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -130,12 +166,15 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_settings) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_profil) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_logout) {
+            ParseUser.getCurrentUser().logOut();
+            Intent i = new Intent(this, AuthenticationActivity.class);
+            startActivity(i);
+            this.finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

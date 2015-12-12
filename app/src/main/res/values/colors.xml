@@ -9,4 +9,17 @@
     <color name="Register">#a91f28</color>
     <color name="LoginText">#4b4142</color>
     <color name="RegisterMain">#E91E63</color>
+
+
+    <!-- Intro background -->
+    <color name="intro1">#3F51B5</color>
+    <color name="intro2">#673AB7</color>
+    <color name="intro3">#27b06e</color>
+    <color name="intro4">#E91E63</color>
+    <color name="intro5">#FF9800</color>
+    <color name="intro6">#4CAF50</color>
+
+    <!-- Navigation Drawer -->
+    <color name="avatar">#6b6e6b</color>
+    <color name="text">#ffffff</color>
 </resources>

@@ -7,10 +7,12 @@
     <string name="action_settings">Settings</string>
 
     <!-- Intro -->
-    <string name="IntroTitle1">Welcome!</string>
-    <string name="IntroText1">We just need some permissions to start. (This is only as an example...this app doesn\'t utilize any of the perms.)</string>
+    <string name="IntroTitle1">Καλουσήρθες!</string>
+    <string name="IntroText1">Ειδώ μπουρείς να βρεις αυτού που θέλεις, ανάμισα σι πουλές αγγελίες. Ή να πουλήσεις τ\' όχημα σου!</string>
     <string name="IntroTitle2">Welcome!</string>
-    <string name="IntroTitle3">Welcome!</string>
+    <string name="IntroText2">Welcome!</string>
+    <string name="IntroTitle3">Εις Δίτρουχός;</string>
+    <string name="IntroText3">Πούλσε, βρες ή αγούρασε κι δίτρουχα! Ακόμ κι πουδήλατα ή άλουγα. \n</string>
     <string name="IntroTitle4">Welcome!</string>
 
     <!-- Pref-Keys -->
