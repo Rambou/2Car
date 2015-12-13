@@ -37,6 +37,7 @@
         <activity
             android:name=".AuthenticationActivity"
             android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".AdvertDetailActivity"></activity>
     </application>
 
 </manifest>
