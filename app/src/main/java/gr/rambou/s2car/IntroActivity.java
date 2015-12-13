@@ -1,5 +1,6 @@
 package gr.rambou.s2car;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,12 +17,13 @@ public class IntroActivity extends AppIntro2 {
     @Override
     public void init(Bundle savedInstanceState) {
         // Instead of fragments, you can also use our default slide
-        addSlide(AppIntroFragment.newInstance(getString(R.string.IntroTitle1), getString(R.string.IntroText1), R.drawable.ic_logo, ContextCompat.getColor(getApplicationContext(), R.color.intro1)));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.IntroTitle2), getString(R.string.IntroText2), R.drawable.ic_logo, ContextCompat.getColor(getApplicationContext(), R.color.intro2)));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.IntroTitle3), getString(R.string.IntroText3), R.drawable.kawasaki, ContextCompat.getColor(getApplicationContext(), R.color.intro3)));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.IntroTitle4), "Μοιράς ή βρες κι δίτρουχα \n", R.drawable.ic_logo, ContextCompat.getColor(getApplicationContext(), R.color.intro4)));
-        addSlide(AppIntroFragment.newInstance("Location", "One more permission! We need to locate your device. \n", R.drawable.ic_logo, ContextCompat.getColor(getApplicationContext(), R.color.intro5)));
-        addSlide(AppIntroFragment.newInstance("All set!", "All done! \n", R.drawable.ic_logo, ContextCompat.getColor(getApplicationContext(), R.color.intro6)));
+        askForPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.INTERNET, Manifest.permission.ACCESS_NETWORK_STATE}, 2);
+        addSlide(AppIntroFragment.newInstance(getString(R.string.IntroTitle1), getString(R.string.IntroText1), R.drawable.ic_vintage_car, ContextCompat.getColor(getApplicationContext(), R.color.intro1)));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.IntroTitle2), getString(R.string.IntroText2), R.drawable.ic_car_extra, ContextCompat.getColor(getApplicationContext(), R.color.intro2)));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.IntroTitle3), getString(R.string.IntroText3), R.drawable.ic_bike, ContextCompat.getColor(getApplicationContext(), R.color.intro3)));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.IntroTitle4), getString(R.string.IntroText4), R.drawable.ic_city, ContextCompat.getColor(getApplicationContext(), R.color.intro4)));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.IntroTitle5), getString(R.string.IntroText5), R.drawable.ic_village, ContextCompat.getColor(getApplicationContext(), R.color.intro5)));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.IntroTitle6), getString(R.string.IntroText6), R.drawable.ic_shopping, ContextCompat.getColor(getApplicationContext(), R.color.intro6)));
 
         // Hide ActionBar and Statusbar
         ActionBar actionBar = getSupportActionBar();

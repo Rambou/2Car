@@ -9,11 +9,16 @@
     <!-- Intro -->
     <string name="IntroTitle1">Καλουσήρθες!</string>
     <string name="IntroText1">Ειδώ μπουρείς να βρεις αυτού που θέλεις, ανάμισα σι πουλές αγγελίες. Ή να πουλήσεις τ\' όχημα σου!</string>
-    <string name="IntroTitle2">Welcome!</string>
-    <string name="IntroText2">Welcome!</string>
+    <string name="IntroTitle2">θες τετράτρουχα;</string>
+    <string name="IntroText2">Βρες αυτού που ψάχνς. Ουτ λογής όχημα θέλς θα του βρεις ειδού... ακόμ κι ανταλλαντικά ή περιφερειακά.</string>
     <string name="IntroTitle3">Εις Δίτρουχός;</string>
     <string name="IntroText3">Πούλσε, βρες ή αγούρασε κι δίτρουχα! Ακόμ κι πουδήλατα ή άλουγα. \n</string>
-    <string name="IntroTitle4">Welcome!</string>
+    <string name="IntroTitle4">Μπές απ\'όπ θιες</string>
+    <string name="IntroText4">Είτ είς στην πόλη, είτ διακουπές, είτ στ\' θαλλσα, τώρα έχεις πρόσβαση πάντα και παντού...</string>
+    <string name="IntroTitle5">Χωριού;</string>
+    <string name="IntroText5">...ναι ακόμ και απ\'του χωριού!</string>
+    <string name="IntroTitle6">Επαγγελματίας</string>
+    <string name="IntroText6">Αν είσι επαγγελματίας μεσσάζουντας στου χωριού σ, τούρα δείχτους πως πλάς με του αγουάσομ απλικάσιον!</string>
 
     <!-- Pref-Keys -->
     <string name="PrefName">2Car_Preferences</string>
