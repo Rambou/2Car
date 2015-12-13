@@ -169,7 +169,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_profil) {
-
+            Intent i = new Intent(this, ProfileActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_logout) {
             ParseUser.getCurrentUser().logOut();
             Intent i = new Intent(this, AuthenticationActivity.class);
