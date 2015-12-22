@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -45,9 +44,9 @@ public class MainActivity extends AppCompatActivity
         sharedPref = this.getSharedPreferences(getString(R.string.PrefName), Context.MODE_PRIVATE);
         Boolean IntroSeen = sharedPref.getBoolean(getString(R.string.IntroSeen), false);
         if (!IntroSeen) {
-            Intent intent = new Intent(this, IntroActivity.class);
-            startActivity(intent);
+            Intent i = new Intent(this, IntroActivity.class);
             finish();
+            startActivity(i);
             return;
         }
 
@@ -55,8 +54,8 @@ public class MainActivity extends AppCompatActivity
         currentUser = ParseUser.getCurrentUser();
         if (currentUser == null) {
             Intent i = new Intent(this, AuthenticationActivity.class);
-            startActivity(i);
             this.finish();
+            startActivity(i);
             return;
         }
 
@@ -68,8 +67,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(MainActivity.this, CreateAdActivity.class);
+                startActivity(i);
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
             }
         });
 
@@ -160,11 +161,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_create) {
+            Intent i = new Intent(this, CreateAdActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_auto) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_motocycle) {
 
         } else if (id == R.id.nav_settings) {
 

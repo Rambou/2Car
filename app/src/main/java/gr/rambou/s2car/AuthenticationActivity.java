@@ -1,5 +1,7 @@
 package gr.rambou.s2car;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -49,19 +51,23 @@ public class AuthenticationActivity extends AppCompatActivity {
     private EditText _regSurname;
     private EditText _regMail;
     private EditText _regPassword;
+    private FragmentTransaction fragmentTransaction;
+    private LoadingFragment f;
+    private FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
 
         ParallaxImageView backgr = (ParallaxImageView) findViewById(R.id.backgr);
         backgr.setMargins(0, 400);
-        backgr.setMultipliers(0f, 2.5f);
+        backgr.setMultipliers(0f, 5f);
 
         // Hide ActionBar
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        //actionBar.hide();
 
         _loginButton = (Button) findViewById(R.id.btn_login);
         _fbLogin = (FloatingActionButton) findViewById(R.id.fblogin);
@@ -162,11 +168,14 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         _loginButton.setEnabled(false);
 
-        /*final ProgressDialog progressDialog = new ProgressDialog(AuthenticationActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();*/
+        f = new LoadingFragment();
+        Bundle b = new Bundle();
+        b.putString("message", getString(R.string.Authenticating));
+        f.setArguments(b);
+        fm = getFragmentManager();
+        fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.login, f);
+        fragmentTransaction.commit();
 
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
@@ -180,7 +189,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                             onLoginSuccess();
                             finish();
                         } else {
-                            //progressDialog.dismiss();
+                            fm.beginTransaction().remove(f).commit();
                             onLoginFailed();
                         }
                     }
@@ -253,11 +262,21 @@ public class AuthenticationActivity extends AppCompatActivity {
         if (email.equals("") && password.equals("")) {
 
         } else {
+            f = new LoadingFragment();
+            Bundle b = new Bundle();
+            b.putString("message", getString(R.string.registering));
+            f.setArguments(b);
+            fm = getFragmentManager();
+            fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.add(R.id.login, f);
+            fragmentTransaction.commit();
+
             // Upload the image into Parse Cloud
             file.saveInBackground(new SaveCallback() {
 
                 @Override
                 public void done(ParseException e) {
+                    fm.beginTransaction().remove(f).commit();
                     if (e == null) {
                         // Save new user data into Parse.com Data Storage
                         ParseUser user = new ParseUser();

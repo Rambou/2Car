@@ -31,6 +31,30 @@
     cheese caerphilly cheddar cheesecake cream cheese manchego lancashire. Roquefort squirty cheese
     the big cheese.</string>
 
+    <!-- Navigation menu -->
+    <string name="Import">Προσθήκη νέας</string>
+    <string name="Cars">Αυτοκίνητα</string>
+    <string name="Motocyles">Μηχανές</string>
+    <string name="Search">Αναζήτηση</string>
+    <string name="Settings">Ρυθμίσεις</string>
+    <string name="Profil">Προφίλ</string>
+    <string name="Logout">Αποσύνδεση</string>
+
+    <!-- Registration -->
+    <string name="name">Όνομα</string>
+    <string name="surname">Επώνυμο</string>
+    <string name="email">E-mail</string>
+    <string name="password">Κωδικός</string>
+    <string name="register">Εγγραφή</string>
+
+    <!-- Parse Keys -->
     <string name="parse_app_id">O7jhDgKcrvZIZkvYUyRwwVcsgJITfkpA9mUfTBil</string>
     <string name="parse_client_key">FciUaX8vJ1K6Hc3qBYND6uGX0VAHLhqi42XOgpLn</string>
+    <string name="loading">Φορτώνει...</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="Authenticating">Αυθεντικοποίηση...</string>
+    <string name="registering">Εγγράφεστε...</string>
 </resources>

@@ -1,9 +1,5 @@
 package gr.rambou.s2car;
 
-/**
- * Created by Nickos on 12/5/2015.
- */
-
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -98,8 +94,6 @@ public class ParallaxImageView extends ImageView implements SensorEventListener 
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // TODO Auto-generated method stub
-
     }
 
     public void onPause() {

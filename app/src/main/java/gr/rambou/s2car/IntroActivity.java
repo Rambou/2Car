@@ -7,17 +7,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 
 import com.github.paolorotolo.appintro.AppIntro2;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
 public class IntroActivity extends AppIntro2 {
 
-    // Please DO NOT override onCreate. Use init
     @Override
     public void init(Bundle savedInstanceState) {
-        // Instead of fragments, you can also use our default slide
-        askForPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.INTERNET, Manifest.permission.ACCESS_NETWORK_STATE}, 2);
+        // Ask for permissions Android Marshmallow
+        askForPermissions(new String[]{Manifest.permission.INTERNET, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.VIBRATE}, 2);
         addSlide(AppIntroFragment.newInstance(getString(R.string.IntroTitle1), getString(R.string.IntroText1), R.drawable.ic_vintage_car, ContextCompat.getColor(getApplicationContext(), R.color.intro1)));
         addSlide(AppIntroFragment.newInstance(getString(R.string.IntroTitle2), getString(R.string.IntroText2), R.drawable.ic_car_extra, ContextCompat.getColor(getApplicationContext(), R.color.intro2)));
         addSlide(AppIntroFragment.newInstance(getString(R.string.IntroTitle3), getString(R.string.IntroText3), R.drawable.ic_bike, ContextCompat.getColor(getApplicationContext(), R.color.intro3)));
@@ -27,7 +27,7 @@ public class IntroActivity extends AppIntro2 {
 
         // Hide ActionBar and Statusbar
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        //actionBar.hide();
         showStatusBar(false);
 
         // Turn vibration on and set intensity
@@ -38,11 +38,12 @@ public class IntroActivity extends AppIntro2 {
 
     @Override
     public void onNextPressed() {
-
+        Log.d("INTRO", "next button pressed");
     }
 
     @Override
     public void onDonePressed() {
+        Log.d("INTRO", "Done pressed");
         // Set a Key-Value to indicate that intro has been seen
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.PrefName), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -54,10 +55,11 @@ public class IntroActivity extends AppIntro2 {
 
     @Override
     public void onSlideChanged() {
-
+        Log.d("INTRO", "Slide changed");
     }
 
     public void LoadMainActivity() {
+        // Create the intent of main activity and kill this one
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         this.finish();

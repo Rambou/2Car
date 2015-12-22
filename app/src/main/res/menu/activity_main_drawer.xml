@@ -3,17 +3,21 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_create"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="@string/Import" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_auto"
+            android:icon="@drawable/ic_car"
+            android:title="@string/Cars" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_motocycle"
+            android:icon="@drawable/ic_motocycle"
+            android:title="@string/Motocyles" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search"
+            android:title="@string/Search" />
     </group>
 
     <item android:title="Γενικά">
@@ -21,15 +25,15 @@
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="Ρυθμίσεις" />
+                android:title="@string/Settings" />
             <item
                 android:id="@+id/nav_profil"
                 android:icon="@drawable/ic_profile"
-                android:title="Προφίλ" />
+                android:title="@string/Profil" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_logout"
-                android:title="Αποσύνδεση" />
+                android:title="@string/Logout" />
         </menu>
     </item>
 
