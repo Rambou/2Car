@@ -57,4 +57,159 @@
 
     <string name="Authenticating">Αυθεντικοποίηση...</string>
     <string name="registering">Εγγράφεστε...</string>
+
+    <!--Στοιχεία Οχήματος-->
+    <string name="VhlDetails">Στοιχεία Οχήματος</string>
+    <string name="VhlAdType">Τύπος αγγελίας</string>
+    <string name="VhlCategory">Κατηγορία</string>
+    <string name="VhlBrand">Μάρκα</string>
+    <string name="VhlModel">Μοντέλο</string>
+    <string name="VhlYear">Χρονολογία Αγοράς</string>
+
+    <!--Στοιχεία μηχανής-->
+    <string name="VhlEngineDetails">Στοιχεία Μηχανής</string>
+    <string name="Vhlkm">Χιλιόμετρα</string>
+    <string name="Vhlcc">Κυβικά</string>
+    <string name="Vhlbhp">Ίπποι</string>
+    <string name="Vhlfuel">Καύσιμο</string>
+
+    <!--Στοιχεία Αγγελίας-->
+    <string name="VhlAdDetails">Στοιχεία Αγγελίας</string>
+    <string name="VhlPrice">Τιμή</string>
+    <string name="VhlAdDescription">Περιγραφή</string>
+    <string name="CASend">Καταχώρηση</string>
+
+
+    <string-array name="AdType_array">
+        <item>Τύπος αγγελίας</item>
+        <item>Πώληση</item>
+        <item>Ζητείται</item>
+        <item>Ενοίκιο</item>
+    </string-array>
+
+    <string-array name="Fuel_array">
+        <item>Καύσιμο</item>
+        <item>Αέριο/Γκαζ</item>
+        <item>Βενζίνη</item>
+        <item>Ηλεκτρικό</item>
+        <item>Πετρέλαιο</item>
+        <item>Υβριδικό</item>
+        <item>Αλλο</item>
+
+    </string-array>
+
+
+    <string-array name="Brand_array">
+        <item>Μάρκα</item>
+        <item>Abarth</item>
+        <item>Acura</item>
+        <item>Aixam</item>
+        <item>Alfa Romeo</item>
+        <item>Alpina</item>
+        <item>Ariel</item>
+        <item>Asia Motors</item>
+        <item>Aston Martin</item>
+        <item>Audi</item>
+        <item>Austin Healey</item>
+        <item>Austin Morris</item>
+        <item>Austin Rover</item>
+        <item>Autobianchi</item>
+        <item>Bentley</item>
+        <item>Bmw</item>
+        <item>Brilliance</item>
+        <item>Bugatti</item>
+        <item>Buick</item>
+        <item>Cadillac</item>
+        <item>Caterham</item>
+        <item>Chery</item>
+        <item>Chevrolet</item>
+        <item>China-Motors</item>
+        <item>Chrysler</item>
+        <item>Citroen</item>
+        <item>Club Car</item>
+        <item>Cobra</item>
+        <item>Corvette</item>
+        <item>Dacia</item>
+        <item>Daewoo</item>
+        <item>Daihatsu</item>
+        <item>DeTomaso</item>
+        <item>Dodge</item>
+        <item>Ferrari</item>
+        <item>Fiat</item>
+        <item>Ford</item>
+        <item>Gmc</item>
+        <item>Honda</item>
+        <item>Hummer</item>
+        <item>Hyundai</item>
+        <item>Infiniti</item>
+        <item>Innocenti</item>
+        <item>Isuzu</item>
+        <item>Jaguar</item>
+        <item>Jeep</item>
+        <item>Jensen Healey</item>
+        <item>Jiangling</item>
+        <item>KTM</item>
+        <item>Kia</item>
+        <item>Lada</item>
+        <item>Lamborghini</item>
+        <item>Lancia</item>
+        <item>Land Rover</item>
+        <item>Landwind</item>
+        <item>Lexus</item>
+        <item>Lifan</item>
+        <item>Ligier</item>
+        <item>Lincoln</item>
+        <item>Lotus</item>
+        <item>Mahindra</item>
+        <item>Maserati</item>
+        <item>Maybach</item>
+        <item>Mazda</item>
+        <item>Mercedes-Benz</item>
+        <item>Mg</item>
+        <item>Mini</item>
+        <item>Mitsubishi</item>
+        <item>Moretti</item>
+        <item>Morgan</item>
+        <item>Neptun</item>
+        <item>Nissan</item>
+        <item>Nsu</item>
+        <item>Opel</item>
+        <item>Panther</item>
+        <item>Peugeot</item>
+        <item>Plymouth</item>
+        <item>Pontiac</item>
+        <item>Porsche</item>
+        <item>Proton</item>
+        <item>Renault</item>
+        <item>Rolls Royce</item>
+        <item>Rover</item>
+        <item>Saab</item>
+        <item>Santana</item>
+        <item>Seat</item>
+        <item>Shuanghuan</item>
+        <item>Skoda</item>
+        <item>Smart</item>
+        <item>SsangYong</item>
+        <item>Subaru</item>
+        <item>Suzuki</item>
+        <item>TVR</item>
+        <item>Talbot</item>
+        <item>Tata</item>
+        <item>Tazzari</item>
+        <item>Toyota</item>
+        <item>Trabant</item>
+        <item>Triumph</item>
+        <item>Uaz</item>
+        <item>Ueec</item>
+        <item>Vauxhall</item>
+        <item>Volkswagen</item>
+        <item>Volvo</item>
+        <item>Wartburg</item>
+        <item>Westfield</item>
+        <item>Wiesmann</item>
+        <item>Zotye</item>
+        <item>Αλλο</item>
+
+    </string-array>
+
 </resources>
