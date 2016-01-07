@@ -59,6 +59,7 @@
     <string name="registering">Εγγράφεστε...</string>
 
     <!--Στοιχεία Οχήματος-->
+    <string name="VhlType">Είδος Οχήματος</string>
     <string name="VhlDetails">Στοιχεία Οχήματος</string>
     <string name="VhlAdType">Τύπος αγγελίας</string>
     <string name="VhlCategory">Κατηγορία</string>
@@ -95,11 +96,256 @@
         <item>Πετρέλαιο</item>
         <item>Υβριδικό</item>
         <item>Αλλο</item>
-
     </string-array>
 
 
-    <string-array name="Brand_array">
+    <string-array name="Bike_brand_array">
+        <item>Μάρκα</item>
+        <item>AB</item>
+        <item>AMS</item>
+        <item>Access</item>
+        <item>Acxa</item>
+        <item>Adiva</item>
+        <item>Adler</item>
+        <item>Adly</item>
+        <item>Aeon</item>
+        <item>Aie</item>
+        <item>Aixam</item>
+        <item>Alien</item>
+        <item>Amstrong</item>
+        <item>Apokotos</item>
+        <item>Aprilia</item>
+        <item>Arctic Cat</item>
+        <item>Armec</item>
+        <item>Aspes</item>
+        <item>Baotian</item>
+        <item>Barossa</item>
+        <item>Bashan</item>
+        <item>Benelli</item>
+        <item>Beta</item>
+        <item>Bigfoot</item>
+        <item>Bimota</item>
+        <item>Bmw</item>
+        <item>Boatian</item>
+        <item>Bombardier</item>
+        <item>Boom-Trikes</item>
+        <item>Bsa</item>
+        <item>Buell</item>
+        <item>Bultaco</item>
+        <item>Buyang</item>
+        <item>CAN-AM</item>
+        <item>CFmoto</item>
+        <item>CPI</item>
+        <item>Cagiva</item>
+        <item>Carver</item>
+        <item>Ccm</item>
+        <item>Cectek</item>
+        <item>Chang Jiang</item>
+        <item>Cheetah</item>
+        <item>Cosmic Princess</item>
+        <item>Daelim</item>
+        <item>Dafier</item>
+        <item>Dayang</item>
+        <item>Daytona</item>
+        <item>Derbi</item>
+        <item>Dias</item>
+        <item>Dinli</item>
+        <item>Dirt Motos</item>
+        <item>Dkw</item>
+        <item>Ducati</item>
+        <item>Dunlop</item>
+        <item>E-ATV</item>
+        <item>E-Ton</item>
+        <item>EML</item>
+        <item>Eagle</item>
+        <item>Emb</item>
+        <item>Emw</item>
+        <item>Enfield</item>
+        <item>Euromotors</item>
+        <item>Evomoto</item>
+        <item>Fever</item>
+        <item>Fuxin</item>
+        <item>Fym</item>
+        <item>Gamax</item>
+        <item>Garelli</item>
+        <item>Gas-Gas</item>
+        <item>Gator</item>
+        <item>Geely</item>
+        <item>Gemini</item>
+        <item>Genata</item>
+        <item>Generic</item>
+        <item>Gilera</item>
+        <item>Haojin</item>
+        <item>Harley Davidson</item>
+        <item>Harlow</item>
+        <item>Hartford</item>
+        <item>Heinkel</item>
+        <item>Herchee</item>
+        <item>Hercules</item>
+        <item>Hero Majestic</item>
+        <item>HighPer</item>
+        <item>Highland</item>
+        <item>Honda</item>
+        <item>Horex</item>
+        <item>Hsun</item>
+        <item>Husaberg</item>
+        <item>Husqvarna</item>
+        <item>Hyosung</item>
+        <item>Imola</item>
+        <item>Imr</item>
+        <item>Indian</item>
+        <item>Italjet</item>
+        <item>Jawa</item>
+        <item>JetMoto</item>
+        <item>Jialing</item>
+        <item>Jianshe</item>
+        <item>Jincheng</item>
+        <item>Jinlun</item>
+        <item>Jla</item>
+        <item>Jmstar</item>
+        <item>John Deere</item>
+        <item>Jonway</item>
+        <item>Joyner</item>
+        <item>KL</item>
+        <item>KTM</item>
+        <item>Kaisar</item>
+        <item>Kasea</item>
+        <item>Kawasaki</item>
+        <item>Kazuma</item>
+        <item>Keeway</item>
+        <item>Kingway</item>
+        <item>Kingwell</item>
+        <item>Kinroad</item>
+        <item>Kreidler</item>
+        <item>Kxd</item>
+        <item>Kyb</item>
+        <item>Kymco</item>
+        <item>LML</item>
+        <item>Lambretta</item>
+        <item>Laverda</item>
+        <item>Lem</item>
+        <item>Lifan</item>
+        <item>Lingben</item>
+        <item>Linhai</item>
+        <item>Lintex</item>
+        <item>Loncin</item>
+        <item>Lynx</item>
+        <item>MBK</item>
+        <item>MDL</item>
+        <item>MZ</item>
+        <item>Magnus</item>
+        <item>Mahindra</item>
+        <item>Maico</item>
+        <item>Malaguti</item>
+        <item>Masai</item>
+        <item>Metropolis</item>
+        <item>Mikilon</item>
+        <item>Minsk</item>
+        <item>Mio</item>
+        <item>Mobster</item>
+        <item>Modenas</item>
+        <item>Monnier-Honda</item>
+        <item>Montesa</item>
+        <item>Monza</item>
+        <item>Morini</item>
+        <item>Motivas</item>
+        <item>Moto Guzzi</item>
+        <item>Motom</item>
+        <item>Motortek</item>
+        <item>Mtg</item>
+        <item>Muddyfox</item>
+        <item>Mv Agusta</item>
+        <item>New Force Motor</item>
+        <item>Nipponia</item>
+        <item>Nomik</item>
+        <item>Norton</item>
+        <item>Nova</item>
+        <item>Nsu</item>
+        <item>Odess</item>
+        <item>Pegasus</item>
+        <item>Peugeot</item>
+        <item>Pgo</item>
+        <item>Piaggio</item>
+        <item>Polaris</item>
+        <item>Polini</item>
+        <item>Puch</item>
+        <item>Qingqi</item>
+        <item>Quadro</item>
+        <item>Quantya</item>
+        <item>Regal-Raptor</item>
+        <item>Rewaco</item>
+        <item>Rhon</item>
+        <item>Rieju</item>
+        <item>Royal Enfield</item>
+        <item>Rueegg</item>
+        <item>SMC</item>
+        <item>Sachs</item>
+        <item>Scorpa</item>
+        <item>Seckam</item>
+        <item>Seikel</item>
+        <item>Shan Yang</item>
+        <item>Sherco</item>
+        <item>Shineray</item>
+        <item>Siamoto</item>
+        <item>Side-Bike</item>
+        <item>Silver Fox</item>
+        <item>Simson</item>
+        <item>Ski-Doo</item>
+        <item>Skyjet</item>
+        <item>Skyteam</item>
+        <item>Sokudo</item>
+        <item>Solex</item>
+        <item>Solid</item>
+        <item>Sonik</item>
+        <item>Sparta</item>
+        <item>Standard</item>
+        <item>Stinger</item>
+        <item>Super Moto</item>
+        <item>Suzuki</item>
+        <item>Swissperformance</item>
+        <item>Sym</item>
+        <item>TCB</item>
+        <item>TM</item>
+        <item>Tgb</item>
+        <item>Tiger</item>
+        <item>Toptom</item>
+        <item>Triton</item>
+        <item>Triumph</item>
+        <item>UM</item>
+        <item>Ueec</item>
+        <item>Unilli</item>
+        <item>Ural</item>
+        <item>Vectrix</item>
+        <item>Vedim</item>
+        <item>Vee Road</item>
+        <item>Vento</item>
+        <item>Vespa</item>
+        <item>Victoria</item>
+        <item>Victory</item>
+        <item>Vmoto</item>
+        <item>Vor</item>
+        <item>Voxan</item>
+        <item>W-Tec</item>
+        <item>WMI</item>
+        <item>Wakan</item>
+        <item>Wangye</item>
+        <item>Winking</item>
+        <item>Wsbike</item>
+        <item>Xbg</item>
+        <item>Xgjao</item>
+        <item>Xingyue</item>
+        <item>Xinling</item>
+        <item>Yamaha</item>
+        <item>Ymc</item>
+        <item>ZhongYu</item>
+        <item>Znen</item>
+        <item>Zongshen</item>
+        <item>Zuendapp</item>
+        <item>Zundapp</item>
+        <item>Αλλο</item>
+    </string-array>
+
+    <string-array name="Car_brand_array">
         <item>Μάρκα</item>
         <item>Abarth</item>
         <item>Acura</item>

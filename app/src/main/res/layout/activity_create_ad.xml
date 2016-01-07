@@ -46,15 +46,55 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@string/VhlType"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <RadioButton
+                            android:id="@+id/rbtnCar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="false"
+                            android:text="Αυτοκίνητο" />
+
+                        <RadioButton
+                            android:id="@+id/rbtnBike"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="false"
+                            android:text="Μηχανή" />
+                    </RadioGroup>
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_margin">
+
+                <LinearLayout
+                    style="@style/Widget.CardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="@string/VhlDetails"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
 
                     <Spinner
                         android:id="@+id/SpnBrand"
-                        android:layout_marginTop="20dp"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:spinnerMode="dropdown" />
 
                     <android.support.design.widget.TextInputLayout
@@ -160,9 +200,9 @@
 
                     <Spinner
                         android:id="@+id/SpnFuel"
-                        android:layout_marginTop="20dp"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:spinnerMode="dropdown" />
 
 
@@ -189,9 +229,9 @@
 
                     <Spinner
                         android:id="@+id/SpnAdType"
-                        android:layout_marginTop="20dp"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:spinnerMode="dropdown" />
 
                     <android.support.design.widget.TextInputLayout
@@ -222,8 +262,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/VhlAdDescription"
-                            android:singleLine="false"
                             android:inputType="textMultiLine"
+                            android:singleLine="false"
                             android:textColor="@color/colorPrimary" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -245,20 +285,18 @@
 
 
                     <Button
+                        android:id="@+id/button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/colorPrimary"
-                        android:textColor="@color/text"
                         android:text="@string/CASend"
-                        android:id="@+id/button" />
+                        android:textColor="@color/text" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
-
-
-
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 </RelativeLayout>
+

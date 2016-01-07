@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.parse.ParseUser;
@@ -29,20 +31,41 @@ public class CreateAdActivity extends AppCompatActivity {
         Spinner spinnerAdType = (Spinner) findViewById(R.id.SpnAdType);
         ArrayAdapter<CharSequence> adapterAdType = ArrayAdapter.createFromResource(this,
                 R.array.AdType_array, R.layout.create_ad_spinner);
-        adapterAdType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterAdType.setDropDownViewResource(R.layout.spinner_dropdown_item_ca);
         spinnerAdType.setAdapter(adapterAdType);
-
-        Spinner spinnerBrand = (Spinner) findViewById(R.id.SpnBrand);
-        ArrayAdapter<CharSequence> adapterBrand = ArrayAdapter.createFromResource(this,
-                R.array.Brand_array, R.layout.create_ad_spinner);
-        adapterBrand.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerBrand.setAdapter(adapterBrand);
 
         Spinner spinnerFuel = (Spinner) findViewById(R.id.SpnFuel);
         ArrayAdapter<CharSequence> adapterFuel = ArrayAdapter.createFromResource(this,
                 R.array.Fuel_array, R.layout.create_ad_spinner);
-        adapterFuel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterFuel.setDropDownViewResource(R.layout.spinner_dropdown_item_ca);
         spinnerFuel.setAdapter(adapterFuel);
+
+        RadioButton rbtnCar = (RadioButton) findViewById(R.id.rbtnCar);
+        rbtnCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Spinner spinnerBrand = (Spinner) findViewById(R.id.SpnBrand);
+                ArrayAdapter<CharSequence> adapterBrand = ArrayAdapter.createFromResource(getApplication(),
+                        R.array.Car_brand_array, R.layout.create_ad_spinner);
+                adapterBrand.setDropDownViewResource(R.layout.spinner_dropdown_item_ca);
+                spinnerBrand.setAdapter(adapterBrand);
+            }
+        });
+
+        RadioButton rbtnBike = (RadioButton) findViewById(R.id.rbtnBike);
+        rbtnBike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Spinner spinnerBrand = (Spinner) findViewById(R.id.SpnBrand);
+                ArrayAdapter<CharSequence> adapterBrand = ArrayAdapter.createFromResource(getApplication(),
+                        R.array.Bike_brand_array, R.layout.create_ad_spinner);
+                adapterBrand.setDropDownViewResource(R.layout.spinner_dropdown_item_ca);
+                spinnerBrand.setAdapter(adapterBrand);
+            }
+        });
+
     }
 
     @Override
