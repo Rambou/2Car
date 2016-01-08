@@ -79,6 +79,7 @@
     <string name="VhlPrice">Τιμή</string>
     <string name="VhlAdDescription">Περιγραφή</string>
     <string name="CASend">Καταχώρηση</string>
+    <string name="CALocation">Τοποθεσία</string>
 
 
     <string-array name="AdType_array">
