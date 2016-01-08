@@ -18,9 +18,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -41,11 +44,34 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
     private final String TAG = "LocationCheck";
     private ParseUser currentUser;
     private GoogleMap mMap;
+    Location location;
+
+    EditText txtCc;
+    EditText txtDescription;
+    EditText txtHp;
+    EditText txtKm;
+    EditText txtModel;
+    EditText txtPrice;
+    EditText txtYear;
+    Spinner spnAdType;
+    Spinner spnFuel;
+    Spinner spnBrand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_ad);
+
+        txtCc = (EditText) findViewById(R.id.txtCACC);
+        txtDescription = (EditText) findViewById(R.id.txtCADescription);
+        txtHp = (EditText) findViewById(R.id.txtCAHp);
+        txtKm = (EditText) findViewById(R.id.txtCAKm);
+        txtModel = (EditText) findViewById(R.id.txtCAModel);
+        txtPrice = (EditText) findViewById(R.id.txtCAPrice);
+        txtYear = (EditText) findViewById(R.id.txtCAYear);
+        spnAdType = (Spinner) findViewById(R.id.SpnAdType);
+        spnFuel = (Spinner) findViewById(R.id.SpnFuel);
+        spnBrand = (Spinner) findViewById(R.id.SpnBrand);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.CA_map);
@@ -84,7 +110,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
 
-        RadioButton rbtnBike = (RadioButton) findViewById(R.id.rbtnBike);
+        final RadioButton rbtnBike = (RadioButton) findViewById(R.id.rbtnBike);
         rbtnBike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,10 +123,53 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
 
+
+        Button btnSendAdData = (Button) findViewById(R.id.btn_send_advert_data);
+        btnSendAdData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Advert ParseAdObj = new Advert();
+                if (rbtnBike.isSelected()) {
+                    ParseAdObj.setVehicleType("Bike");
+                } else {
+                    ParseAdObj.setVehicleType("Car");
+                }
+                ParseAdObj.setVehiclePurchaseYear(txtYear.getText().toString());
+                ParseAdObj.setVehiclePrice(txtPrice.getText().toString());
+                ParseAdObj.setVehicleModel(txtModel.getText().toString());
+                ParseAdObj.setVehicleKm(Integer.valueOf(txtKm.getText().toString()));
+                ParseAdObj.setVehicleHp(Integer.valueOf(txtHp.getText().toString()));
+                ParseAdObj.setVehicleFuel(spnFuel.getSelectedItem().toString());
+                ParseAdObj.setVehicleDescription(txtDescription.getText().toString());
+                ParseAdObj.setVehicleCc(Integer.valueOf(txtCc.getText().toString()));
+                ParseAdObj.setVehicleBrand(spnBrand.getSelectedItem().toString());
+                ParseAdObj.setAdvertType(spnAdType.getSelectedItem().toString());
+                if (location != null) {
+                    ParseAdObj.setLocation(location.getLatitude() + "|" + location.getLongitude());
+                }
+
+                ParseAdObj.saveInBackground();
+            }
+        });
+
+
         if (BuildConfig.DEBUG_CREATE_AD) {
-            // TODO: 8/1/2016 Fix or delete
+            // TODO: 8/1/2016 Fix or delete scroll down
             NestedScrollView sv = (NestedScrollView) findViewById(R.id.AC_scrollview);
             sv.fullScroll(View.FOCUS_DOWN);
+
+            rbtnCar.performClick();
+
+            txtCc.setText("50");
+            txtDescription.setText("test");
+            txtHp.setText("50");
+            txtKm.setText("50");
+            txtModel.setText("test");
+            txtPrice.setText("test");
+            txtYear.setText("1992");
+            spnAdType.setSelection(3);
+            spnBrand.setSelection(5);
+            spnFuel.setSelection(5);
         }
     }
 
@@ -117,6 +186,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     public void refreshLocation(Location location) {
+        this.location = location;
         Toast.makeText(getBaseContext(), "Updated",
                 Toast.LENGTH_SHORT).show();
 
@@ -124,12 +194,11 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
         // Add a marker in yourlocation and move the camera
         LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
-//        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
         mMap.addMarker(new MarkerOptions().position(myLocation).title("You are here"));
         Log.v(TAG, "Marker Added");
 
-        //region Get address
+
         try {
             Geocoder geo = new Geocoder(CreateAdActivity.this.getApplicationContext(), Locale.getDefault());
             List<Address> addresses = geo.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
@@ -144,8 +213,6 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
         } catch (Exception e) {
             e.printStackTrace(); // getFromLocation() may sometimes fail
         }
-        //endregion
-//        location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
     }
 
     @Override
