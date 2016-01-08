@@ -1,6 +1,7 @@
 package gr.rambou.s2car;
 
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 /**
@@ -103,6 +104,14 @@ public class Advert extends ParseObject {
 
     public void setLocation(String value) {
         put("Location", value);
+    }
+
+    public ParseFile getPhoto() {
+        return getParseFile("Photo");
+    }
+
+    public void setPhoto(ParseFile file) {
+        put("Photo", file);
     }
 
     public String toString(){

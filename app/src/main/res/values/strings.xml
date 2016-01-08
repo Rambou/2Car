@@ -80,6 +80,7 @@
     <string name="VhlAdDescription">Περιγραφή</string>
     <string name="CASend">Καταχώρηση</string>
     <string name="CALocation">Τοποθεσία</string>
+    <string name="CAPhoto">Φωτογραφία</string>
 
 
     <string-array name="AdType_array">

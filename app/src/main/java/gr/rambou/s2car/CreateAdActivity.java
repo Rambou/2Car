@@ -3,13 +3,17 @@ package gr.rambou.s2car;
 import android.Manifest;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +24,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -33,8 +38,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,6 +65,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
     Spinner spnAdType;
     Spinner spnFuel;
     Spinner spnBrand;
+    ImageView imgPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +82,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
         spnAdType = (Spinner) findViewById(R.id.SpnAdType);
         spnFuel = (Spinner) findViewById(R.id.SpnFuel);
         spnBrand = (Spinner) findViewById(R.id.SpnBrand);
+        imgPhoto = (ImageView) findViewById(R.id.CA_Photo);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.CA_map);
@@ -128,7 +139,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
         btnSendAdData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Advert ParseAdObj = new Advert();
+                final Advert ParseAdObj = new Advert();
                 if (rbtnBike.isSelected()) {
                     ParseAdObj.setVehicleType("Bike");
                 } else {
@@ -148,7 +159,35 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
                     ParseAdObj.setLocation(location.getLatitude() + "|" + location.getLongitude());
                 }
 
-                ParseAdObj.saveInBackground();
+                Bitmap bitmap = ((BitmapDrawable) imgPhoto.getDrawable()).getBitmap();
+                // Convert it to byte
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                // Compress image to lower quality scale 1 - 100
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+
+                // Create the ParseFile
+                final ParseFile file = new ParseFile("jaguar.png", image);
+                file.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            ParseAdObj.setPhoto(file);
+                            ParseAdObj.saveInBackground();
+                            Snackbar.make(findViewById(R.id.AC_content_layout), "Η αγγελία καταχωρήθηκε", Snackbar.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+
+            }
+        });
+
+        imgPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, 1888);
             }
         });
 
@@ -170,6 +209,14 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
             spnAdType.setSelection(3);
             spnBrand.setSelection(5);
             spnFuel.setSelection(5);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1888 && resultCode == RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            imgPhoto.setImageBitmap(photo);
         }
     }
 

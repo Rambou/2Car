@@ -19,6 +19,8 @@ android {
         }
         debug {
             buildConfigField "boolean", "DEBUG_CREATE_AD", "true"
+            buildConfigField "boolean", "DEBUG_REGISTER", "true"
+            buildConfigField "boolean", "DEBUG_LOGIN", "true"
         }
     }
 }
