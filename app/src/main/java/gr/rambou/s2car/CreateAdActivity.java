@@ -97,7 +97,8 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
 
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG_CREATE_AD) {
+            // TODO: 8/1/2016 Fix or delete
             NestedScrollView sv = (NestedScrollView) findViewById(R.id.AC_scrollview);
             sv.fullScroll(View.FOCUS_DOWN);
         }
@@ -125,20 +126,21 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
 
 //        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
+        mMap.addMarker(new MarkerOptions().position(myLocation).title("You are here"));
+        Log.v(TAG, "Marker Added");
 
         //region Get address
         try {
             Geocoder geo = new Geocoder(CreateAdActivity.this.getApplicationContext(), Locale.getDefault());
             List<Address> addresses = geo.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            if (addresses.isEmpty()) {
-                mMap.addMarker(new MarkerOptions().position(myLocation).title("You are here"));
-            } else {
-                if (addresses.size() > 0) {
-                    mMap.addMarker(new MarkerOptions().position(myLocation)
-                            .title((addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName()))
-                            .snippet(String.valueOf(location.getSpeed())));
-                }
+            if (addresses.size() > 0) {
+                mMap.clear();
+                mMap.addMarker(new MarkerOptions().position(myLocation)
+                        .title((addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName()))
+                        .snippet(String.valueOf(location.getSpeed())))
+                        .showInfoWindow();
             }
+            Log.v(TAG, "Marker Added2");
         } catch (Exception e) {
             e.printStackTrace(); // getFromLocation() may sometimes fail
         }
