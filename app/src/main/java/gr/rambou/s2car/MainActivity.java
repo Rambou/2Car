@@ -107,6 +107,10 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
+        if (BuildConfig.DEBUG_CREATE_AD) {
+            fab.performClick();
+        }
     }
 
     private void setupViewPager(ViewPager viewPager) {

@@ -17,6 +17,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            buildConfigField "boolean", "DEBUG_CREATE_AD", "false"
+            buildConfigField "boolean", "DEBUG_REGISTER", "true"
+            buildConfigField "boolean", "DEBUG_LOGIN", "true"
+        }
     }
 }
 

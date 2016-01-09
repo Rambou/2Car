@@ -127,6 +127,17 @@ public class AuthenticationActivity extends AppCompatActivity {
                 register();
             }
         });
+
+        if (BuildConfig.DEBUG_REGISTER) {
+            _regName.setText("test");
+            _regMail.setText("test@test.com");
+            _regSurname.setText("test");
+            _regPassword.setText("test");
+        }
+        if (BuildConfig.DEBUG_LOGIN) {
+            _emailText.setText("test@test.com");
+            _passwordText.setText("test");
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
