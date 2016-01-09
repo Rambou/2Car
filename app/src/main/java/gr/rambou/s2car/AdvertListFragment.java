@@ -11,16 +11,27 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class AdvertListFragment extends Fragment {
+
+    List<Advert> adverts;
+
+    public AdvertListFragment(List<Advert> adverts) {
+        this.adverts = adverts;
+    }
 
     @Nullable
     @Override
@@ -34,7 +45,7 @@ public class AdvertListFragment extends Fragment {
     private void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter(getActivity(),
-                getRandomSublist(Cheeses.sCheeseStrings, 30)));
+                adverts));
     }
 
     private List<String> getRandomSublist(String[] array, int amount) {
@@ -51,15 +62,18 @@ public class AdvertListFragment extends Fragment {
 
         private final TypedValue mTypedValue = new TypedValue();
         private int mBackground;
-        private List<String> mValues;
+        /**
+         * List of adverts
+         */
+        private List<Advert> mValues;
 
-        public SimpleStringRecyclerViewAdapter(Context context, List<String> items) {
+        public SimpleStringRecyclerViewAdapter(Context context, List<Advert> items) {
             context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
             mBackground = mTypedValue.resourceId;
             mValues = items;
         }
 
-        public String getValueAt(int position) {
+        public Advert getValueAt(int position) {
             return mValues.get(position);
         }
 
@@ -73,8 +87,13 @@ public class AdvertListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mBoundString = mValues.get(position);
-            holder.mTextView.setText(mValues.get(position));
+            holder.mBoundString = mValues.get(position).getVehicleDescription();
+            holder.mTextView.setText(mValues.get(position).getVehicleDescription());
+
+            // TODO: 9/1/2016 Check if favorite
+            /*if (isFavorite()) {
+                holder.mImageButton.setImageResource(R.drawable.star_checked);
+            }*/
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -87,8 +106,15 @@ public class AdvertListFragment extends Fragment {
                 }
             });
 
+            holder.mImageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO: 9/1/2016 Set favorite
+                }
+            });
+
             Glide.with(holder.mImageView.getContext())
-                    .load(Cheeses.getRandomCheeseDrawable())
+                    .load(mValues.get(position).getPhoto())
                     .fitCenter()
                     .into(holder.mImageView);
         }
@@ -102,6 +128,7 @@ public class AdvertListFragment extends Fragment {
             public final View mView;
             public final ImageView mImageView;
             public final TextView mTextView;
+            public final ImageButton mImageButton;
             public String mBoundString;
 
             public ViewHolder(View view) {
@@ -109,6 +136,7 @@ public class AdvertListFragment extends Fragment {
                 mView = view;
                 mImageView = (ImageView) view.findViewById(R.id.avatar);
                 mTextView = (TextView) view.findViewById(android.R.id.text1);
+                mImageButton = (ImageButton) view.findViewById(R.id.imgbtn_star);
             }
 
             @Override

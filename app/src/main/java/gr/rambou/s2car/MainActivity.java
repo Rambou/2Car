@@ -1,5 +1,6 @@
 package gr.rambou.s2car;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,9 +24,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     SharedPreferences sharedPref;
+    AppCompatActivity mainAct = this;
     private ParseUser currentUser;
 
     @Override
@@ -114,11 +119,22 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        Adapter adapter = new Adapter(this.getSupportFragmentManager());
-        adapter.addFragment(new AdvertListFragment(), "Category 1");
-        adapter.addFragment(new AdvertListFragment(), "Category 2");
-        adapter.addFragment(new AdvertListFragment(), "Category 3");
-        viewPager.setAdapter(adapter);
+
+        ParseQuery<Advert> query = new ParseQuery<Advert>("Advert");
+        query.findInBackground(new FindCallback<Advert>() {
+            public void done(List<Advert> allAds, ParseException e) {
+                if (e == null) {
+                    ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+                    Adapter adapter = new Adapter(mainAct.getSupportFragmentManager());
+                    adapter.addFragment(new AdvertListFragment(allAds), "Category 1");
+                    adapter.addFragment(new AdvertListFragment(allAds), "Category 2");
+                    viewPager.setAdapter(adapter);
+                } else {
+
+                }
+            }
+        });
+
     }
 
     @Override
