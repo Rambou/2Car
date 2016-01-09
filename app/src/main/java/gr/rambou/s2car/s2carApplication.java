@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
+import com.parse.ParseObject;
 
 public class s2carApplication extends Application {
 
@@ -11,6 +12,8 @@ public class s2carApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        Parse.enableLocalDatastore(this);
+        ParseObject.registerSubclass(Advert.class);
         // Add your initialization code here
         Parse.initialize(this);
 
