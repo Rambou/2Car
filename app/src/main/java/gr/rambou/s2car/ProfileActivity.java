@@ -2,23 +2,28 @@ package gr.rambou.s2car;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
@@ -27,10 +32,12 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.soundcloud.android.crop.Crop;
 import com.truizlop.fabreveallayout.FABRevealLayout;
 import com.truizlop.fabreveallayout.OnRevealChangeListener;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -233,15 +240,52 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void setImage() {
         if (edit) {
-            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent, 1888);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Επέλεξε φωτογραφία από")
+                    .setPositiveButton("Κάμερα", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(cameraIntent, 1888);
+                        }
+                    })
+                    .setNegativeButton("Βιβλιοθήκη", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Crop.pickImage(ProfileActivity.this);
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            builder.create();
+            builder.show();
         }
     }
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1888 && resultCode == RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            avatar.setImageBitmap(photo);
+            beginCrop(data.getData());
+        }
+
+        if (requestCode == Crop.REQUEST_PICK && resultCode == RESULT_OK) {
+            beginCrop(data.getData());
+        } else if (requestCode == Crop.REQUEST_CROP) {
+            handleCrop(resultCode, data);
+        }
+    }
+
+    private void beginCrop(Uri source) {
+        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
+        Crop.of(source, destination).asSquare().start(this);
+        Log.d("[IMAGE]", "new image loaded" + source);
+    }
+
+    private void handleCrop(int resultCode, Intent result) {
+        if (resultCode == RESULT_OK) {
+            // Πρέπει να γίνει force για redraw διότι έχει το ίδιο path και δεν γίνεται από μόνο του
+            avatar.setImageDrawable(null);
+            avatar.setImageURI(Crop.getOutput(result));
+            Log.d("[IMAGE]", "new image loaded" + Crop.getOutput(result).getEncodedPath());
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }
