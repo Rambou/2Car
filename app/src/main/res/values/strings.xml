@@ -83,6 +83,8 @@
     <string name="VhlPrice">Τιμή</string>
     <string name="VhlAdDescription">Περιγραφή</string>
     <string name="CASend">Καταχώρηση</string>
+    <string name="CALocation">Τοποθεσία</string>
+    <string name="CAPhoto">Φωτογραφία</string>
     <string name="Phone">Τηλέφωνο</string>
     <string name="action_search">Αναζήτηση</string>
     <string name="Brand">Μάρκα</string>

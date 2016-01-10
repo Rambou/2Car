@@ -120,19 +120,19 @@ public class Advert extends ParseObject {
         put("Photo", file);
     }
 
-    public String toString() {
+    public String toString(){
         return
                 getVehicleKm() + "," +
-                        getVehicleType() + "," +
-                        getVehiclePurchaseYear() + "," +
-                        getVehiclePrice() + "," +
-                        getVehicleModel() + "," +
-                        getVehicleHp() + "," +
-                        getVehicleFuel() + "," +
-                        getVehicleDescription() + "," +
-                        getVehicleCc() + "," +
-                        getVehicleBrand() + "," +
-                        getLocation() + "," +
-                        getAdvertType();
+                getVehicleType() + "," +
+                getVehiclePurchaseYear() + "," +
+                getVehiclePrice() + "," +
+                getVehicleModel() + "," +
+                getVehicleHp() + "," +
+                getVehicleFuel() + "," +
+                getVehicleDescription() + "," +
+                getVehicleCc() + "," +
+                getVehicleBrand() + "," +
+                getLocation() + "," +
+                getAdvertType();
     }
 }
