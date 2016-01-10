@@ -84,6 +84,9 @@
     <string name="CASend">Καταχώρηση</string>
     <string name="Phone">Τηλέφωνο</string>
     <string name="action_search">Αναζήτηση</string>
+    <string name="Brand">Μάρκα</string>
+    <string name="SpnFuel">καύσιμο</string>
+    <string name="SpnAdType">κατάσταση οχήματος</string>
 
 
     <string-array name="AdType_array">

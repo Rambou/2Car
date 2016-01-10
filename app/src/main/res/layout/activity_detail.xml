@@ -66,13 +66,17 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Info"
+                        android:text="@string/VhlType"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/cheese_ipsum" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/VhlType"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:typeface="normal" />
 
                 </LinearLayout>
 
@@ -81,9 +85,7 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/card_margin"
-                android:layout_marginLeft="@dimen/card_margin"
-                android:layout_marginRight="@dimen/card_margin">
+                android:layout_margin="@dimen/card_margin">
 
                 <LinearLayout
                     style="@style/Widget.CardContent"
@@ -93,14 +95,38 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Friends"
+                        android:text="@string/VhlDetails"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
+                    <!-- Μάρκα -->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/cheese_ipsum" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/Brand"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:typeface="normal" />
 
+                    <!-- Μοντέλο -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/VhlModel"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:typeface="normal" />
+
+                    <!-- Χρονιά -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/VhlYear"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:typeface="normal" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -108,9 +134,7 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/card_margin"
-                android:layout_marginLeft="@dimen/card_margin"
-                android:layout_marginRight="@dimen/card_margin">
+                android:layout_margin="@dimen/card_margin">
 
                 <LinearLayout
                     style="@style/Widget.CardContent"
@@ -120,13 +144,99 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Related"
+                        android:text="@string/VhlEngineDetails"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <!-- Χιλιόμετρα -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/Vhlkm"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:typeface="normal" />
+
+                    <!-- Κιβυκά -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/Vhlcc"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:typeface="normal" />
+
+                    <!-- Ίπποι -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/Vhlbhp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:typeface="normal" />
+
+                    <!-- Καύσιμο -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/SpnFuel"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:typeface="normal" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_margin">
+
+
+                <LinearLayout
+                    style="@style/Widget.CardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/cheese_ipsum" />
+                        android:text="@string/VhlAdDetails"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <!-- Τύπος οχήματος - καινούργιο, μεταχειρισμένο κτλ -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/SpnAdType"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:typeface="normal" />
+
+                    <!-- Τιμή οχήματος -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/VhlPrice"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:typeface="normal" />
+
+                    <!-- Περιγραφή οχήματος -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/VhlAdDescription"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:typeface="normal" />
 
                 </LinearLayout>
 
