@@ -83,6 +83,7 @@
     <string name="VhlAdDescription">Περιγραφή</string>
     <string name="CASend">Καταχώρηση</string>
     <string name="Phone">Τηλέφωνο</string>
+    <string name="action_search">Αναζήτηση</string>
 
 
     <string-array name="AdType_array">
