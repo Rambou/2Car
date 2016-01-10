@@ -1,6 +1,5 @@
 package gr.rambou.s2car;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -31,14 +31,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -172,7 +170,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(final ViewPager viewPager) {
 
         ParseQuery<Advert> query = new ParseQuery<Advert>("Advert");
         query.findInBackground(new FindCallback<Advert>() {
@@ -203,12 +201,13 @@ public class MainActivity extends AppCompatActivity
                         e1.printStackTrace();
                     }
 
-                    ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
                     adapter = new Adapter(mainAct.getSupportFragmentManager());
                     adapter.addFragment(new AdvertListFragment(listCars), "Αυτοκίνητα");
                     adapter.addFragment(new AdvertListFragment(listBikes), "Μηχανές");
                     adapter.addFragment(new AdvertListFragment(listFavorites), "Αγαπημένα");
                     viewPager.setAdapter(adapter);
+                    TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+                    tabLayout.setupWithViewPager(viewPager);
                 } else {
 
                 }

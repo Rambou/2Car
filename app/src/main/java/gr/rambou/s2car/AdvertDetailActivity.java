@@ -8,20 +8,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
 public class AdvertDetailActivity extends AppCompatActivity {
 
-    public static final String EXTRA_NAME = "cheese_name";
+    private Intent i;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Intent intent = getIntent();
-        final String cheeseName = intent.getStringExtra(EXTRA_NAME);
+        i = getIntent();
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -29,15 +29,38 @@ public class AdvertDetailActivity extends AppCompatActivity {
 
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(cheeseName);
+        collapsingToolbar.setTitle(i.getStringExtra("VhlAdDescription"));
 
         loadBackdrop();
+
+        TextView VhlType = (TextView) findViewById(R.id.VhlType);
+        TextView Brand = (TextView) findViewById(R.id.Brand);
+        TextView VhlModel = (TextView) findViewById(R.id.VhlModel);
+        TextView VhlYear = (TextView) findViewById(R.id.VhlYear);
+        TextView Vhlkm = (TextView) findViewById(R.id.Vhlkm);
+        TextView Vhlcc = (TextView) findViewById(R.id.Vhlcc);
+        TextView Vhlbhp = (TextView) findViewById(R.id.Vhlbhp);
+        TextView SpnFuel = (TextView) findViewById(R.id.SpnFuel);
+        TextView SpnAdType = (TextView) findViewById(R.id.SpnAdType);
+        TextView VhlPrice = (TextView) findViewById(R.id.VhlPrice);
+        TextView VhlAdDescription = (TextView) findViewById(R.id.VhlAdDescription);
+
+        VhlType.setText(i.getStringExtra("VhlType"));
+        Brand.setText(i.getStringExtra("Brand"));
+        VhlModel.setText(i.getStringExtra("VhlModel"));
+        VhlYear.setText(i.getStringExtra("VhlYear"));
+        Vhlkm.setText(i.getStringExtra("Vhlkm"));
+        Vhlcc.setText(i.getStringExtra("Vhlcc"));
+        Vhlbhp.setText(i.getStringExtra("Vhlbhp"));
+        SpnFuel.setText(i.getStringExtra("SpnFuel"));
+        SpnAdType.setText(i.getStringExtra("SpnAdType"));
+        VhlPrice.setText(i.getStringExtra("VhlPrice"));
+        VhlAdDescription.setText(i.getStringExtra("VhlAdDescription"));
     }
 
     private void loadBackdrop() {
         final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        // TODO: 10/1/2016 To be replaced by Rambou
-        //Glide.with(this).load(Cheeses.getRandomCheeseDrawable()).centerCrop().into(imageView);
+        Glide.with(this).load(i.getByteArrayExtra("Photo")).centerCrop().into(imageView);
     }
 
     @Override

@@ -70,6 +70,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
+                        android:id="@+id/VhlType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -100,6 +101,7 @@
 
                     <!-- Μάρκα -->
                     <TextView
+                        android:id="@+id/Brand"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -110,6 +112,7 @@
 
                     <!-- Μοντέλο -->
                     <TextView
+                        android:id="@+id/VhlModel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -120,6 +123,7 @@
 
                     <!-- Χρονιά -->
                     <TextView
+                        android:id="@+id/VhlYear"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -149,6 +153,7 @@
 
                     <!-- Χιλιόμετρα -->
                     <TextView
+                        android:id="@+id/Vhlkm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -159,6 +164,7 @@
 
                     <!-- Κιβυκά -->
                     <TextView
+                        android:id="@+id/Vhlcc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -169,6 +175,7 @@
 
                     <!-- Ίπποι -->
                     <TextView
+                        android:id="@+id/Vhlbhp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -179,6 +186,7 @@
 
                     <!-- Καύσιμο -->
                     <TextView
+                        android:id="@+id/SpnFuel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -210,6 +218,7 @@
 
                     <!-- Τύπος οχήματος - καινούργιο, μεταχειρισμένο κτλ -->
                     <TextView
+                        android:id="@+id/SpnAdType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -220,6 +229,7 @@
 
                     <!-- Τιμή οχήματος -->
                     <TextView
+                        android:id="@+id/VhlPrice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -230,6 +240,7 @@
 
                     <!-- Περιγραφή οχήματος -->
                     <TextView
+                        android:id="@+id/VhlAdDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"

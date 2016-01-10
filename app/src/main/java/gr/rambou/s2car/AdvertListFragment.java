@@ -14,14 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,21 +114,30 @@ public class AdvertListFragment extends Fragment {
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    LinearLayout row = (LinearLayout) v.getParent();
+                    RecyclerView row = (RecyclerView) v.getParent();
                     String objId = ((TextView) row.findViewById(R.id.parse_obj_id)).getText().toString();
                     Context context = v.getContext();
                     Intent intent = new Intent(context, AdvertDetailActivity.class);
 
-                    intent.putExtra(AdvertDetailActivity.EXTRA_NAME, holder.mBoundString);
                     Bundle mBundle = new Bundle();
                     for (int i = 0; i < mValues.size(); i++) {
                         if (mValues.get(i).getObjectId().equals(objId)) {
-                            mBundle.putSerializable("curAdvert", mValues.get(i));
+                            mBundle.putString("VhlType", mValues.get(i).getVehicleType());
+                            mBundle.putString("Brand", mValues.get(i).getVehicleBrand());
+                            mBundle.putString("VhlModel", mValues.get(i).getVehicleModel());
+                            mBundle.putString("VhlYear", mValues.get(i).getVehiclePurchaseYear());
+                            mBundle.putInt("Vhlkm", mValues.get(i).getVehicleKm());
+                            mBundle.putInt("Vhlcc", mValues.get(i).getVehicleCc());
+                            mBundle.putInt("Vhlbhp", mValues.get(i).getVehicleHp());
+                            mBundle.putString("SpnFuel", mValues.get(i).getVehicleFuel());
+                            mBundle.putString("SpnAdType", mValues.get(i).getAdvertType());
+                            mBundle.putString("VhlPrice", mValues.get(i).getVehiclePrice());
+                            mBundle.putString("VhlAdDescription", mValues.get(i).getVehicleDescription());
+                            mBundle.putByteArray("Photo", mValues.get(i).getPhoto());
                             break;
                         }
                     }
                     intent.putExtras(mBundle);
-
                     context.startActivity(intent);
                 }
             });
