@@ -72,6 +72,18 @@
                     android:textColor="@color/colorPrimary" />
             </android.support.design.widget.TextInputLayout>
 
+            <!-- Phone Label -->
+            <Switch
+                android:id="@+id/showPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Εμφάνιση τηλεφώνου                                     "
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimary" />
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

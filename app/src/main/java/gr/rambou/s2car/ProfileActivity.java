@@ -16,12 +16,15 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView username;
     private TextView surname;
     private TextView email;
+    private TextView phone;
 
     private FABRevealLayout fabRevealLayout;
     private Button btn_save;
@@ -57,6 +61,8 @@ public class ProfileActivity extends AppCompatActivity {
     private LoadingFragment f;
     private FragmentManager fm;
     private ParseUser currentUser;
+    private Switch showPhone;
+    private String Phone = null;
 
     private boolean edit = false;
 
@@ -104,6 +110,8 @@ public class ProfileActivity extends AppCompatActivity {
         surname = (TextView) findViewById(R.id.surname);
         email = (TextView) findViewById(R.id.email);
         username = (TextView) findViewById(R.id.username);
+        phone = (TextView) findViewById(R.id.phone);
+        showPhone = (Switch) findViewById(R.id.showPhone);
 
         setTextFields();
 
@@ -116,6 +124,19 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
         configureFABReveal(fabRevealLayout);
+
+        showPhone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    TelephonyManager tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+                    Phone = tm.getLine1Number();
+                } else {
+                    showPhone.setChecked(false);
+                    phone = null;
+                }
+            }
+        });
     }
 
     @Override
@@ -179,6 +200,7 @@ public class ProfileActivity extends AppCompatActivity {
                         currentUser.setEmail(email);
                         currentUser.put("Name", name);
                         currentUser.put("Surname", surname);
+                        currentUser.put("Phone", Phone);
                         currentUser.put("Avatar", file);
                         currentUser.saveInBackground(new SaveCallback() {
                             public void done(ParseException e) {
@@ -236,6 +258,21 @@ public class ProfileActivity extends AppCompatActivity {
         surname.setText((String) currentUser.get("Surname"));
         email.setHint(currentUser.getEmail());
         username.setText(currentUser.getUsername());
+
+        // Έλεγχος για το αν ο χρήστης ενεργοποίησε την εμφάνιση του κινητού του
+        if (currentUser.get("Phone") != null) {
+            if (currentUser.get("Phone").equals(null)) {
+                showPhone.setChecked(false);
+                phone.setVisibility(View.INVISIBLE);
+            } else {
+                showPhone.setChecked(true);
+                phone.setVisibility(View.VISIBLE);
+                phone.setText((String) currentUser.get("Phone"));
+            }
+        } else {
+            phone.setVisibility(View.INVISIBLE);
+            showPhone.setChecked(false);
+        }
     }
 
     private void setImage() {
