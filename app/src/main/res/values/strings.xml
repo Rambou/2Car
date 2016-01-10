@@ -37,6 +37,7 @@
     <string name="Import">Προσθήκη νέας</string>
     <string name="Cars">Αυτοκίνητα</string>
     <string name="Motocyles">Μηχανές</string>
+    <string name="Favorites">Αγαπημένα</string>
     <string name="Search">Αναζήτηση</string>
     <string name="Settings">Ρυθμίσεις</string>
     <string name="Profil">Προφίλ</string>
@@ -465,5 +466,6 @@
         <item>Αλλο</item>
 
     </string-array>
+    <string name="title_activity_favorites">Favorites</string>
 
 </resources>

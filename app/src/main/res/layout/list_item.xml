@@ -27,12 +27,38 @@
         android:id="@+id/avatar"
         android:layout_width="@dimen/list_item_avatar_size"
         android:layout_height="@dimen/list_item_avatar_size"
-        android:layout_marginRight="16dp" />
+        android:layout_marginRight="16dp"
+        android:src="@drawable/ic_avatar" />
 
     <TextView
         android:id="@android:id/text1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="testing"
         android:textAppearance="?attr/textAppearanceListItem" />
+
+    <ImageButton
+        android:id="@+id/imgbtn_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:paddingRight="5dp"
+        android:src="@drawable/star_unchecked" />
+
+    <TextView
+        android:id="@+id/parse_obj_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/is_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:visibility="gone" />
+
 
 </LinearLayout>
