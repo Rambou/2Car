@@ -119,9 +119,20 @@ public class AdvertListFragment extends Fragment {
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    LinearLayout row = (LinearLayout) v.getParent();
+                    String objId = ((TextView) row.findViewById(R.id.parse_obj_id)).getText().toString();
                     Context context = v.getContext();
                     Intent intent = new Intent(context, AdvertDetailActivity.class);
+
                     intent.putExtra(AdvertDetailActivity.EXTRA_NAME, holder.mBoundString);
+                    Bundle mBundle = new Bundle();
+                    for (int i = 0; i < mValues.size(); i++) {
+                        if (mValues.get(i).getObjectId().equals(objId)) {
+                            mBundle.putSerializable("curAdvert", mValues.get(i));
+                            break;
+                        }
+                    }
+                    intent.putExtras(mBundle);
 
                     context.startActivity(intent);
                 }
@@ -144,7 +155,7 @@ public class AdvertListFragment extends Fragment {
                         for (int i = 0; i < mValues.size(); i++) {
                             if (mValues.get(i).getObjectId().equals(objId)) {
                                 mValues.get(i).pinInBackground();
-                                return;
+                                break;
                             }
                         }
                     } else {
@@ -154,7 +165,7 @@ public class AdvertListFragment extends Fragment {
                         for (int i = 0; i < mValues.size(); i++) {
                             if (mValues.get(i).getObjectId().equals(objId)) {
                                 mValues.get(i).unpinInBackground();
-                                return;
+                                break;
                             }
                         }
                     }

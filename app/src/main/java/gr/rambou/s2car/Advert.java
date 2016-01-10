@@ -5,11 +5,13 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 
+import java.io.Serializable;
+
 /**
  * Created by konstantinos on 8/1/2016.
  */
 @ParseClassName("Advert")
-public class Advert extends ParseObject {
+public class Advert extends ParseObject implements Serializable {
 
     public String getVehicleType() {
         return getString("VehicleType");
