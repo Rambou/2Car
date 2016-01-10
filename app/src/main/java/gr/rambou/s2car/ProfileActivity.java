@@ -62,7 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FragmentManager fm;
     private ParseUser currentUser;
     private Switch showPhone;
-    private String Phone = null;
+    private String Phone = "";
 
     private boolean edit = false;
 
@@ -133,7 +133,7 @@ public class ProfileActivity extends AppCompatActivity {
                     Phone = tm.getLine1Number();
                 } else {
                     showPhone.setChecked(false);
-                    phone = null;
+                    Phone = "";
                 }
             }
         });
@@ -261,13 +261,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Έλεγχος για το αν ο χρήστης ενεργοποίησε την εμφάνιση του κινητού του
         if (currentUser.get("Phone") != null) {
-            if (currentUser.get("Phone").equals(null)) {
+            if (currentUser.get("Phone").equals("")) {
                 showPhone.setChecked(false);
                 phone.setVisibility(View.INVISIBLE);
             } else {
                 showPhone.setChecked(true);
-                phone.setVisibility(View.VISIBLE);
                 phone.setText((String) currentUser.get("Phone"));
+                phone.setVisibility(View.VISIBLE);
             }
         } else {
             phone.setVisibility(View.INVISIBLE);
