@@ -1,7 +1,6 @@
 package gr.rambou.s2car;
 
 import android.Manifest;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,14 +25,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -51,10 +47,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
 
 
     private final String TAG = "LocationCheck";
-    private ParseUser currentUser;
-    private GoogleMap mMap;
     Location location;
-
     EditText txtCc;
     EditText txtDescription;
     EditText txtHp;
@@ -66,6 +59,8 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
     Spinner spnFuel;
     Spinner spnBrand;
     ImageView imgPhoto;
+    private ParseUser currentUser;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -280,19 +275,12 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
-                Toast.makeText(getBaseContext(), "Miracle",
-                        Toast.LENGTH_SHORT).show();
             }
 
             public void onProviderEnabled(String provider) {
-                Toast.makeText(getBaseContext(), "Don't cry",
-                        Toast.LENGTH_SHORT).show();
             }
 
             public void onProviderDisabled(String provider) {
-                // TODO: 8/1/2016 remove toast messages
-                Toast.makeText(getBaseContext(), "Cry",
-                        Toast.LENGTH_SHORT).show();
             }
         };
 
