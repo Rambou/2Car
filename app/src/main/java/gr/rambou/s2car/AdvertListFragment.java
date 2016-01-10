@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -28,6 +30,7 @@ import java.util.Random;
 public class AdvertListFragment extends Fragment {
 
     List<Advert> adverts;
+    RecyclerView recyclerView;
 
     public AdvertListFragment(List<Advert> adverts) {
         this.adverts = adverts;
@@ -39,6 +42,7 @@ public class AdvertListFragment extends Fragment {
         RecyclerView rv = (RecyclerView) inflater.inflate(
                 R.layout.fragment_cheese_list, container, false);
         setupRecyclerView(rv);
+        this.recyclerView = rv;
         return rv;
     }
 
@@ -48,6 +52,13 @@ public class AdvertListFragment extends Fragment {
                 adverts));
     }
 
+    public void refreshRecyclerView(List<Advert> listRefreshed) {
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter(getActivity(),
+                listRefreshed));
+    }
+
+    // TODO: 10/1/2016 Remove 
     private List<String> getRandomSublist(String[] array, int amount) {
         ArrayList<String> list = new ArrayList<>(amount);
         Random random = new Random();
@@ -89,10 +100,20 @@ public class AdvertListFragment extends Fragment {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mBoundString = mValues.get(position).getVehicleDescription();
             holder.mTextView.setText(mValues.get(position).getVehicleDescription());
+            holder.mParseObjId.setText(mValues.get(position).getObjectId());
 
-            // TODO: 9/1/2016 Check if favorite
-            /*if (isFavorite()) {
-                holder.mImageButton.setImageResource(R.drawable.star_checked);
+            /*try {
+                ParseQuery<Advert> qryFavorites = new ParseQuery<Advert>("Advert");
+                qryFavorites.fromLocalDatastore();
+                qryFavorites.whereEqualTo("objectId", holder.mParseObjId.getText().toString());
+                List<Advert> listFavorites = qryFavorites.find();
+                if (listFavorites.size() > 0) {
+                    holder.mIsFavorite.setText("true");
+                } else {
+                    holder.mIsFavorite.setText("false");
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
             }*/
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +131,33 @@ public class AdvertListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     // TODO: 9/1/2016 Set favorite
+                    ImageButton imgBtn = (ImageButton) v;
+
+                    LinearLayout row = (LinearLayout) v.getParent();
+                    String objId = ((TextView) row.findViewById(R.id.parse_obj_id)).getText().toString();
+                    TextView isFavorite = ((TextView) row.findViewById(R.id.is_favorite));
+
+                    if (isFavorite.getText().toString().equals("false")) {
+                        imgBtn.setImageResource(R.drawable.star_checked);
+                        isFavorite.setText("true");
+
+                        for (int i = 0; i < mValues.size(); i++) {
+                            if (mValues.get(i).getObjectId().equals(objId)) {
+                                mValues.get(i).pinInBackground();
+                                return;
+                            }
+                        }
+                    } else {
+                        isFavorite.setText("false");
+                        imgBtn.setImageResource(R.drawable.star_unchecked);
+
+                        for (int i = 0; i < mValues.size(); i++) {
+                            if (mValues.get(i).getObjectId().equals(objId)) {
+                                mValues.get(i).unpinInBackground();
+                                return;
+                            }
+                        }
+                    }
                 }
             });
 
@@ -129,6 +177,8 @@ public class AdvertListFragment extends Fragment {
             public final ImageView mImageView;
             public final TextView mTextView;
             public final ImageButton mImageButton;
+            public final TextView mParseObjId;
+            public final TextView mIsFavorite;
             public String mBoundString;
 
             public ViewHolder(View view) {
@@ -137,6 +187,8 @@ public class AdvertListFragment extends Fragment {
                 mImageView = (ImageView) view.findViewById(R.id.avatar);
                 mTextView = (TextView) view.findViewById(android.R.id.text1);
                 mImageButton = (ImageButton) view.findViewById(R.id.imgbtn_star);
+                mParseObjId = (TextView) view.findViewById(R.id.parse_obj_id);
+                mIsFavorite = (TextView) view.findViewById(R.id.is_favorite);
             }
 
             @Override

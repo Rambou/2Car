@@ -24,7 +24,7 @@ public class Advert extends ParseObject {
     }
 
     public void setVehicleBrand(String value) {
-        put("VehicleType", value);
+        put("VehicleBrand", value);
     }
 
     public String getVehicleModel() {

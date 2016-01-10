@@ -18,12 +18,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -40,6 +45,8 @@ public class MainActivity extends AppCompatActivity
 
     SharedPreferences sharedPref;
     AppCompatActivity mainAct = this;
+    Adapter adapter;
+    ViewPager viewPager;
     private ParseUser currentUser;
 
     @Override
@@ -92,10 +99,38 @@ public class MainActivity extends AppCompatActivity
         final ImageView avatar = (ImageView) drawerHeader.findViewById(R.id.avatar);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
         if (viewPager != null) {
             setupViewPager(viewPager);
         }
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 2) {
+                    List<Advert> listFavorites = null;
+                    try {
+                        ParseQuery<Advert> qryFavorites = new ParseQuery<Advert>("Advert");
+                        qryFavorites.fromLocalDatastore();
+                        listFavorites = qryFavorites.find();
+
+                        AdvertListFragment mSomeFragment = (AdvertListFragment) adapter.getItem(2);
+                        mSomeFragment.refreshRecyclerView(listFavorites);
+                        Log.v("refreshgui", "refreshed");
+                    } catch (ParseException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         name.setText(currentUser.get("Name") + " " + currentUser.get("Surname"));
         email.setText(currentUser.getEmail());
 
@@ -116,6 +151,16 @@ public class MainActivity extends AppCompatActivity
         if (BuildConfig.DEBUG_CREATE_AD) {
             fab.performClick();
         }
+        if (BuildConfig.DEBUG) {
+            ParseQuery<Advert> query = new ParseQuery<Advert>("Advert");
+            query.findInBackground(new FindCallback<Advert>() {
+                public void done(List<Advert> allAds, ParseException e) {
+                    for (int i = 0; i < allAds.size(); i++) {
+                        allAds.get(i).unpinInBackground();
+                    }
+                }
+            });
+        }
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -124,10 +169,36 @@ public class MainActivity extends AppCompatActivity
         query.findInBackground(new FindCallback<Advert>() {
             public void done(List<Advert> allAds, ParseException e) {
                 if (e == null) {
+                    List<Advert> listCars = Lists.newArrayList(Collections2.filter(
+                            allAds, new Predicate<Advert>() {
+                                @Override
+                                public boolean apply(Advert input) {
+                                    return input.getVehicleType().equals("Car") ? true : false;
+                                }
+                            }));
+                    List<Advert> listBikes = Lists.newArrayList(Collections2.filter(
+                            allAds, new Predicate<Advert>() {
+                                @Override
+                                public boolean apply(Advert input) {
+                                    return input.getVehicleType().equals("Bike") ? true : false;
+                                }
+                            }));
+
+                    ParseQuery<Advert> query = new ParseQuery<Advert>("Advert");
+                    List<Advert> listFavorites = null;
+                    try {
+                        ParseQuery<Advert> qryFavorites = new ParseQuery<Advert>("Advert");
+                        qryFavorites.fromLocalDatastore();
+                        listFavorites = qryFavorites.find();
+                    } catch (ParseException e1) {
+                        e1.printStackTrace();
+                    }
+
                     ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-                    Adapter adapter = new Adapter(mainAct.getSupportFragmentManager());
-                    adapter.addFragment(new AdvertListFragment(allAds), "Category 1");
-                    adapter.addFragment(new AdvertListFragment(allAds), "Category 2");
+                    adapter = new Adapter(mainAct.getSupportFragmentManager());
+                    adapter.addFragment(new AdvertListFragment(listCars), "Αυτοκίνητα");
+                    adapter.addFragment(new AdvertListFragment(listBikes), "Μηχανές");
+                    adapter.addFragment(new AdvertListFragment(listFavorites), "Αγαπημένα");
                     viewPager.setAdapter(adapter);
                 } else {
 
@@ -185,11 +256,13 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(this, CreateAdActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_auto) {
-
+            viewPager.setCurrentItem(0);
         } else if (id == R.id.nav_motocycle) {
-
+            viewPager.setCurrentItem(1);
         } else if (id == R.id.nav_settings) {
 
+        } else if (id == R.id.nav_Favorites) {
+            viewPager.setCurrentItem(2);
         } else if (id == R.id.nav_profil) {
             Intent i = new Intent(this, ProfileActivity.class);
             startActivity(i);

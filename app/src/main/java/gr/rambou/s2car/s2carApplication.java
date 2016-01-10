@@ -13,6 +13,7 @@ public class s2carApplication extends Application {
         super.onCreate();
 
         // TODO: 10/1/2016 To be merged
+        Parse.enableLocalDatastore(this);
         ParseObject.registerSubclass(Advert.class);
         // Add your initialization code here
         Parse.initialize(this);
