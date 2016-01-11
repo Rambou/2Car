@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
@@ -20,7 +19,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -130,7 +128,6 @@ public class MainActivity extends AppCompatActivity
 
                         AdvertListFragment mSomeFragment = (AdvertListFragment) adapter.getItem(2);
                         mSomeFragment.refreshRecyclerView(listFavorites);
-                        Log.v("refreshgui", "refreshed");
                     } catch (ParseException e1) {
                         e1.printStackTrace();
                     }
@@ -167,7 +164,7 @@ public class MainActivity extends AppCompatActivity
             query.findInBackground(new FindCallback<Advert>() {
                 public void done(List<Advert> allAds, ParseException e) {
                     for (int i = 0; i < allAds.size(); i++) {
-                        allAds.get(i).unpinInBackground();
+                        //allAds.get(i).unpinInBackground();
                     }
                 }
             });
@@ -180,6 +177,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onRefresh() {
                 new Task().execute();
+
             }
 
         });
@@ -369,20 +367,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     static class Adapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragments = new ArrayList<>();
+        private final List<AdvertListFragment> mFragments = new ArrayList<>();
         private final List<String> mFragmentTitles = new ArrayList<>();
 
         public Adapter(FragmentManager fm) {
             super(fm);
         }
 
-        public void addFragment(Fragment fragment, String title) {
+        public void addFragment(AdvertListFragment fragment, String title) {
             mFragments.add(fragment);
             mFragmentTitles.add(title);
         }
 
         @Override
-        public Fragment getItem(int position) {
+        public AdvertListFragment getItem(int position) {
             return mFragments.get(position);
         }
 
@@ -399,14 +397,52 @@ public class MainActivity extends AppCompatActivity
 
     private class Task extends AsyncTask<Void, Void, String[]> {
 
+        List<Advert> allAds;
+
         @Override
         protected String[] doInBackground(Void... params) {
-            // TODO : Εδώ γράψε κώστα τον κώδικα που θα πέρνει πράγμα από το parse και μετά πέρνα την λίστα στο new result
+            ParseQuery<Advert> query = new ParseQuery<Advert>("Advert");
+            List<Advert> allAds = null;
+            try {
+                allAds = query.find();
+
+                this.allAds = allAds;
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
             return new String[0];
         }
 
         @Override
         protected void onPostExecute(String[] result) {
+            List<Advert> listCars = Lists.newArrayList(Collections2.filter(
+                    allAds, new Predicate<Advert>() {
+                        @Override
+                        public boolean apply(Advert input) {
+                            return input.getVehicleType().equals("Car") ? true : false;
+                        }
+                    }));
+            List<Advert> listBikes = Lists.newArrayList(Collections2.filter(
+                    allAds, new Predicate<Advert>() {
+                        @Override
+                        public boolean apply(Advert input) {
+                            return input.getVehicleType().equals("Bike") ? true : false;
+                        }
+                    }));
+
+            List<Advert> listFavorites = null;
+            try {
+                ParseQuery<Advert> qryFavorites = new ParseQuery<Advert>("Advert");
+                qryFavorites.fromLocalDatastore();
+                listFavorites = qryFavorites.find();
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+
+            adapter.getItem(0).refreshRecyclerView(listCars);
+            adapter.getItem(1).refreshRecyclerView(listBikes);
+            adapter.getItem(2).refreshRecyclerView(listFavorites);
             // Call setRefreshing(false) when the list has been refreshed.
             mWaveSwipeRefreshLayout.setRefreshing(false);
             super.onPostExecute(result);

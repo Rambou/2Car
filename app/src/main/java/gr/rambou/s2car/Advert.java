@@ -42,7 +42,7 @@ public class Advert extends ParseObject {
     }
 
     public void setVehiclePurchaseYear(String value) {
-        put("VehicleType", value);
+        put("VehiclePurchaseYear", value);
     }
 
     public int getVehicleKm() {
