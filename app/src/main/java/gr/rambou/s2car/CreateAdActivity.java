@@ -260,6 +260,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setScrollGesturesEnabled(false);
         LocationManager locationManager;
 
         // Acquire a reference to the system Location Manager
