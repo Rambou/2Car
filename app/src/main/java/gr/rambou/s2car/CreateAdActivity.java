@@ -45,7 +45,6 @@ import java.util.Locale;
 
 public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-
     private final String TAG = "LocationCheck";
     Location location;
     EditText txtCc;

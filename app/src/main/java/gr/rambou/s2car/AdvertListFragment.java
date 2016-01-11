@@ -3,7 +3,6 @@ package gr.rambou.s2car;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,11 +26,14 @@ public class AdvertListFragment extends Fragment {
     List<Advert> adverts;
     RecyclerView recyclerView;
 
+    public AdvertListFragment() {
+
+    }
+
     public AdvertListFragment(List<Advert> adverts) {
         this.adverts = adverts;
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecyclerView rv = (RecyclerView) inflater.inflate(
