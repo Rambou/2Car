@@ -56,10 +56,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/view"
             android:layout_marginTop="15dp"
-            rsv:filledColor="#1A5F77" />
+            rsv:filledColor="#1A5F77"
+            rsv:rangeCount="10" />
 
     </RelativeLayout>
 
@@ -73,5 +76,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:background="@color/colorPrimary"
-        android:text="Αναζήτηση" />
+        android:text="Αναζήτηση"
+        android:textColor="@color/cardview_light_background" />
 </RelativeLayout>
