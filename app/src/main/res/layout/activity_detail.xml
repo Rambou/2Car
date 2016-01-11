@@ -259,13 +259,16 @@
                 android:layout_margin="@dimen/card_margin">
 
                 <LinearLayout
-                    style="@style/Widget.CardContent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingTop="24dp"
                         android:text="@string/CALocation"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
