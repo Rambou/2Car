@@ -129,7 +129,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
             @Override
             public void onClick(View v) {
                 final Advert ParseAdObj = new Advert();
-                if (rbtnBike.isSelected()) {
+                if (rbtnBike.isChecked()) {
                     ParseAdObj.setVehicleType("Bike");
                 } else {
                     ParseAdObj.setVehicleType("Car");
