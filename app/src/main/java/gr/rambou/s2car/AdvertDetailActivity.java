@@ -1,6 +1,7 @@
 package gr.rambou.s2car;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -11,15 +12,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 
-public class AdvertDetailActivity extends AppCompatActivity {
+import gr.rambou.s2car.utils.mapUtils;
 
+public class AdvertDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    Location location = new Location("IpRovide");
     private Intent i;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.CA_map);
+        mapFragment.getMapAsync(this);
 
         i = getIntent();
 
@@ -56,6 +67,11 @@ public class AdvertDetailActivity extends AppCompatActivity {
         SpnAdType.setText(i.getStringExtra("SpnAdType"));
         VhlPrice.setText(i.getStringExtra("VhlPrice"));
         VhlAdDescription.setText(i.getStringExtra("VhlAdDescription"));
+
+        String temp = i.getStringExtra("Latitude");
+        String temp2 = i.getStringExtra("Longitude");
+        location.setLatitude(Double.parseDouble(i.getStringExtra("Latitude")));
+        location.setLongitude(Double.parseDouble(i.getStringExtra("Longitude")));
     }
 
     private void loadBackdrop() {
@@ -79,5 +95,12 @@ public class AdvertDetailActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        googleMap.getUiSettings().setScrollGesturesEnabled(false);
+        mapUtils.refreshLocation(location, googleMap, AdvertDetailActivity.this.getApplicationContext());
     }
 }

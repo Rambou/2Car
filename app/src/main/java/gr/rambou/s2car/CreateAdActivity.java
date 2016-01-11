@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,20 +26,17 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
-import java.util.List;
-import java.util.Locale;
+
+import gr.rambou.s2car.utils.mapUtils;
 
 public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -226,36 +221,6 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
-    public void refreshLocation(Location location) {
-        this.location = location;
-        Toast.makeText(getBaseContext(), "Updated",
-                Toast.LENGTH_SHORT).show();
-
-        mMap.clear();
-        // Add a marker in yourlocation and move the camera
-        LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
-        mMap.addMarker(new MarkerOptions().position(myLocation).title("You are here"));
-        Log.v(TAG, "Marker Added");
-
-
-        try {
-            Geocoder geo = new Geocoder(CreateAdActivity.this.getApplicationContext(), Locale.getDefault());
-            List<Address> addresses = geo.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            if (addresses.size() > 0) {
-                mMap.clear();
-                mMap.addMarker(new MarkerOptions().position(myLocation)
-                        .title((addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName()))
-                        .snippet(String.valueOf(location.getSpeed())))
-                        .showInfoWindow();
-            }
-            Log.v(TAG, "Marker Added2");
-        } catch (Exception e) {
-            e.printStackTrace(); // getFromLocation() may sometimes fail
-        }
-    }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -271,7 +236,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
                 // Called when a new location is found by the network location provider.
                 //makeUseOfNewLocation(location);
                 Log.v(TAG, "Location updated to " + location.toString());
-                refreshLocation(location);
+                mapUtils.refreshLocation(location, mMap, CreateAdActivity.this.getApplicationContext());
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -298,7 +263,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
 //            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
             Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (loc != null) {
-                refreshLocation(loc);
+                mapUtils.refreshLocation(loc, mMap, CreateAdActivity.this.getApplicationContext());
                 Log.v(TAG, "Got location");
             }
         }
