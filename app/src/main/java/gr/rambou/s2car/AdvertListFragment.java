@@ -96,26 +96,12 @@ public class AdvertListFragment extends Fragment {
             holder.mBoundString = mValues.get(position).getVehicleDescription();
             holder.mTextView.setText(mValues.get(position).getVehicleDescription());
             holder.mParseObjId.setText(mValues.get(position).getObjectId());
-
-            /*try {
-                ParseQuery<Advert> qryFavorites = new ParseQuery<Advert>("Advert");
-                qryFavorites.fromLocalDatastore();
-                qryFavorites.whereEqualTo("objectId", holder.mParseObjId.getText().toString());
-                List<Advert> listFavorites = qryFavorites.find();
-                if (listFavorites.size() > 0) {
-                    holder.mIsFavorite.setText("true");
-                } else {
-                    holder.mIsFavorite.setText("false");
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }*/
+            holder.mIsFavorite.setText("false");
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    RecyclerView row = (RecyclerView) v.getParent();
-                    String objId = ((TextView) row.findViewById(R.id.parse_obj_id)).getText().toString();
+                    String objId = ((TextView) v.findViewById(R.id.parse_obj_id)).getText().toString();
                     Context context = v.getContext();
                     Intent intent = new Intent(context, AdvertDetailActivity.class);
 
@@ -145,7 +131,6 @@ public class AdvertListFragment extends Fragment {
             holder.mImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: 9/1/2016 Set favorite
                     ImageButton imgBtn = (ImageButton) v;
 
                     LinearLayout row = (LinearLayout) v.getParent();
