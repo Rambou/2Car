@@ -112,9 +112,9 @@ public class AdvertListFragment extends Fragment {
                             mBundle.putString("Brand", mValues.get(i).getVehicleBrand());
                             mBundle.putString("VhlModel", mValues.get(i).getVehicleModel());
                             mBundle.putString("VhlYear", mValues.get(i).getVehiclePurchaseYear());
-                            mBundle.putInt("Vhlkm", mValues.get(i).getVehicleKm());
-                            mBundle.putInt("Vhlcc", mValues.get(i).getVehicleCc());
-                            mBundle.putInt("Vhlbhp", mValues.get(i).getVehicleHp());
+                            mBundle.putString("Vhlkm", String.valueOf(mValues.get(i).getVehicleKm()));
+                            mBundle.putString("Vhlcc", String.valueOf(mValues.get(i).getVehicleCc()));
+                            mBundle.putString("Vhlbhp", String.valueOf(mValues.get(i).getVehicleHp()));
                             mBundle.putString("SpnFuel", mValues.get(i).getVehicleFuel());
                             mBundle.putString("SpnAdType", mValues.get(i).getAdvertType());
                             mBundle.putString("VhlPrice", mValues.get(i).getVehiclePrice());
