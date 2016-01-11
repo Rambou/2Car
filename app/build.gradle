@@ -53,4 +53,7 @@ dependencies {
     compile 'com.google.guava:guava:18.0'
     compile 'com.truizlop.fabreveallayout:library:1.0.0'
     compile 'com.soundcloud.android:android-crop:1.0.1@aar'
+    compile 'com.github.florent37:materialtextfield:1.0.1@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.github.channguyen:rsv:1.0.1'
 }

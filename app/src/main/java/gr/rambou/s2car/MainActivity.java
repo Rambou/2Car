@@ -278,8 +278,9 @@ public class MainActivity extends AppCompatActivity
             viewPager.setCurrentItem(0);
         } else if (id == R.id.nav_motocycle) {
             viewPager.setCurrentItem(1);
-        } else if (id == R.id.nav_settings) {
-
+        } else if (id == R.id.nav_search) {
+            Intent i = new Intent(this, SearchActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_Favorites) {
             viewPager.setCurrentItem(2);
         } else if (id == R.id.nav_profil) {

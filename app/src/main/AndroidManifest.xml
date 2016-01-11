@@ -26,6 +26,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -45,8 +46,8 @@
         <activity android:name=".AdvertDetailActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".CreateAdActivity" />
-
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>
