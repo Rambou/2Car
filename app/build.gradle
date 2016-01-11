@@ -23,6 +23,14 @@ android {
             buildConfigField "boolean", "DEBUG_LOGIN", "true"
         }
     }
+    signingConfigs {
+        debug {
+            storeFile file("mykeystore.jks")
+            storePassword "armageddonas"
+            keyAlias "babis"
+            keyPassword "armageddonas"
+        }
+    }
 }
 
 dependencies {
