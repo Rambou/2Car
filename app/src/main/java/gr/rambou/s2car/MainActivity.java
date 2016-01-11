@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -43,6 +44,8 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity
     private MenuItem mSearchAction;
     private boolean isSearchOpened = false;
     private EditText edtSeach;
+    private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +172,17 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
+
+        mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) findViewById(R.id.main_swipe);
+        //mWaveSwipeRefreshLayout.setMaxDropHeight((int) (mWaveSwipeRefreshLayout.getHeight() * 30));
+        //mWaveSwipeRefreshLayout.setWaveColor(R.color.colorPrimaryDark);
+        mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Task().execute();
+            }
+
+        });
     }
 
     private void setupViewPager(final ViewPager viewPager) {
@@ -380,6 +395,22 @@ public class MainActivity extends AppCompatActivity
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitles.get(position);
+        }
+    }
+
+    private class Task extends AsyncTask<Void, Void, String[]> {
+
+        @Override
+        protected String[] doInBackground(Void... params) {
+            // TODO : Εδώ γράψε κώστα τον κώδικα που θα πέρνει πράγμα από το parse και μετά πέρνα την λίστα στο new result
+            return new String[0];
+        }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            // Call setRefreshing(false) when the list has been refreshed.
+            mWaveSwipeRefreshLayout.setRefreshing(false);
+            super.onPostExecute(result);
         }
     }
 }
