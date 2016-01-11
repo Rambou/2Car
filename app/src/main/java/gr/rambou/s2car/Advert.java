@@ -102,7 +102,7 @@ public class Advert extends ParseObject {
     }
 
     public String getLocation() {
-        return getString("Location");
+        return (getString("Location") == null) ? "0|0" : getString("Location");
     }
 
     public void setLocation(String value) {

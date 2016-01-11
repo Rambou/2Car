@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity
                         qryFavorites.fromLocalDatastore();
                         listFavorites = qryFavorites.find();
 
-                        AdvertListFragment mSomeFragment = (AdvertListFragment) adapter.getItem(2);
+                        AdvertListFragment mSomeFragment = adapter.getItem(2);
                         mSomeFragment.refreshRecyclerView(listFavorites);
                     } catch (ParseException e1) {
                         e1.printStackTrace();
@@ -442,7 +442,7 @@ public class MainActivity extends AppCompatActivity
 
             adapter.getItem(0).refreshRecyclerView(listCars);
             adapter.getItem(1).refreshRecyclerView(listBikes);
-            adapter.getItem(2).refreshRecyclerView(listFavorites);
+            //adapter.getItem(2).refreshRecyclerView(listFavorites);
             // Call setRefreshing(false) when the list has been refreshed.
             mWaveSwipeRefreshLayout.setRefreshing(false);
             super.onPostExecute(result);
