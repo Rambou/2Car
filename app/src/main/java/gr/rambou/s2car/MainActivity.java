@@ -206,7 +206,6 @@ public class MainActivity extends AppCompatActivity
                                 }
                             }));
 
-                    ParseQuery<Advert> query = new ParseQuery<Advert>("Advert");
                     List<Advert> listFavorites = null;
                     try {
                         ParseQuery<Advert> qryFavorites = new ParseQuery<Advert>("Advert");

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,7 @@ public class AdvertListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecyclerView rv = (RecyclerView) inflater.inflate(
-                R.layout.fragment_cheese_list, container, false);
+                R.layout.fragment_advert_list, container, false);
         setupRecyclerView(rv);
         this.recyclerView = rv;
         return rv;
@@ -98,7 +99,13 @@ public class AdvertListFragment extends Fragment {
             holder.mBoundString = mValues.get(position).getVehicleDescription();
             holder.mTextView.setText(mValues.get(position).getVehicleDescription());
             holder.mParseObjId.setText(mValues.get(position).getObjectId());
-            holder.mIsFavorite.setText("false");
+            if (mValues.get(position).isFavorite == true) {
+                holder.mIsFavorite.setText("true");
+                holder.mImageButton.setImageResource(R.drawable.star_checked);
+            } else {
+                holder.mIsFavorite.setText("false");
+                holder.mImageButton.setImageResource(R.drawable.star_unchecked);
+            }
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -122,7 +129,6 @@ public class AdvertListFragment extends Fragment {
                             mBundle.putString("VhlPrice", mValues.get(i).getVehiclePrice());
                             mBundle.putString("VhlAdDescription", mValues.get(i).getVehicleDescription());
                             mBundle.putByteArray("Photo", mValues.get(i).getPhoto());
-                            String temp[] = mValues.get(i).getLocation().split("\\|");
                             mBundle.putString("Latitude", mValues.get(i).getLocation().split("\\|")[0]);
                             mBundle.putString("Longitude", mValues.get(i).getLocation().split("\\|")[1]);
                             break;
@@ -148,6 +154,8 @@ public class AdvertListFragment extends Fragment {
 
                         for (int i = 0; i < mValues.size(); i++) {
                             if (mValues.get(i).getObjectId().equals(objId)) {
+                                Log.v("locally", mValues.get(i).isFavorite ? "true" : "false");
+                                mValues.get(i).isFavorite = true;
                                 mValues.get(i).pinInBackground();
                                 break;
                             }
@@ -158,6 +166,8 @@ public class AdvertListFragment extends Fragment {
 
                         for (int i = 0; i < mValues.size(); i++) {
                             if (mValues.get(i).getObjectId().equals(objId)) {
+                                Log.v("locally", mValues.get(i).isFavorite ? "true" : "false");
+                                mValues.get(i).isFavorite = false;
                                 mValues.get(i).unpinInBackground();
                                 break;
                             }
