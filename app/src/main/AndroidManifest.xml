@@ -47,7 +47,7 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".CreateAdActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".SearchActivity" />
     </application>
 
 </manifest>

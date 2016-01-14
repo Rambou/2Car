@@ -7,28 +7,39 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.channguyen.rsv.RangeSliderView;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
     private Location location;
+    private AppCompatActivity me = this;
+    private Adapter adapter;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +52,39 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Button btnSearch = (Button) findViewById(R.id.btnSearch);
+        final SeekBar range = (SeekBar) findViewById(R.id.rsv_small);
+        final TextView kmtxt = (TextView) findViewById(R.id.km);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView request = (TextView) findViewById(R.id.search_text);
-                RangeSliderView range = (RangeSliderView) findViewById(R.id.rsv_small);
 
-                search(request.getText().toString(), (int) (range.getSliderRadiusPercent() * 10));
+                search(request.getText().toString(), range.getProgress());
             }
         });
 
+        range.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progress = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
+                progress = progresValue;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                kmtxt.setText(seekBar.getProgress() + " km");
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                kmtxt.setText(progress + " km");
+            }
+        });
+        // Setup viepager
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        // Location Listeners
         initlocation();
     }
 
@@ -70,17 +103,27 @@ public class SearchActivity extends AppCompatActivity {
         Log.d("SEARCH", "Searching for: " + name + " and Radius: " + radius);
 
         ParseGeoPoint userLocation = getGeoPointFromLocation();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Advert");
+        ParseQuery<Advert> query = ParseQuery.getQuery("Advert");
         query.whereContains("VehicleDescription", name);
         query.whereWithinKilometers("coords", userLocation, radius);
         Log.d("RAIDUS GPS", userLocation.toString() + radius);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> AdvertList, ParseException e) {
+        query.findInBackground(new FindCallback<Advert>() {
+            public void done(List<Advert> AdvertList, ParseException e) {
                 if (e == null) {
-                    if (!AdvertList.isEmpty())
-                        Log.d("Adverts", "Retrieved " + AdvertList.size() + " scores" + AdvertList.get(0));
+                    if (!AdvertList.isEmpty()) {
+                        Log.d("Adverts", "Retrieved " + AdvertList.size() + " | " + AdvertList.get(0));
+
+                        adapter = new Adapter(me.getSupportFragmentManager());
+                        adapter.addFragment(new AdvertListFragment(AdvertList), "Αποτελέσματα");
+                        viewPager.setAdapter(adapter);
+                        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+                        tabLayout.setupWithViewPager(viewPager);
+                    } else {
+                        Snackbar.make(me.getCurrentFocus(), "Δεν βρέθηκαν αποτελέσματα", Snackbar.LENGTH_LONG).show();
+                    }
                 } else {
                     Log.d("Adverts", "Error: " + e.getMessage());
+                    Snackbar.make(me.getCurrentFocus(), "Υπήρξε πρόβλημα ξαναπροσπαθήστε", Snackbar.LENGTH_LONG).show();
                 }
             }
         });
@@ -152,6 +195,70 @@ public class SearchActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Permission Problem",
                     Toast.LENGTH_SHORT).show();
             Log.v(TAG, "Permission problem");
+        }
+    }
+
+    private void setupViewPager(final ViewPager viewPager) {
+
+        ParseQuery<Advert> query = new ParseQuery<Advert>("Advert");
+        query.findInBackground(new FindCallback<Advert>() {
+            public void done(List<Advert> allAds, ParseException e) {
+                if (e == null) {
+                    List<Advert> listCars = Lists.newArrayList(Collections2.filter(
+                            allAds, new Predicate<Advert>() {
+                                @Override
+                                public boolean apply(Advert input) {
+                                    return input.getVehicleType().equals("Car") ? true : false;
+                                }
+                            }));
+                    List<Advert> listBikes = Lists.newArrayList(Collections2.filter(
+                            allAds, new Predicate<Advert>() {
+                                @Override
+                                public boolean apply(Advert input) {
+                                    return input.getVehicleType().equals("Bike") ? true : false;
+                                }
+                            }));
+
+                    List<Advert> listFavorites = null;
+                    try {
+                        ParseQuery<Advert> qryFavorites = new ParseQuery<Advert>("Advert");
+                        qryFavorites.fromLocalDatastore();
+                        listFavorites = qryFavorites.find();
+                    } catch (ParseException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
+
+    }
+
+    static class Adapter extends FragmentPagerAdapter {
+        private final List<AdvertListFragment> mFragments = new ArrayList<>();
+        private final List<String> mFragmentTitles = new ArrayList<>();
+
+        public Adapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        public void addFragment(AdvertListFragment fragment, String title) {
+            mFragments.add(fragment);
+            mFragmentTitles.add(title);
+        }
+
+        @Override
+        public AdvertListFragment getItem(int position) {
+            return mFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitles.get(position);
         }
     }
 }
