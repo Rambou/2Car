@@ -31,6 +31,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -145,7 +146,12 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
                 ParseAdObj.setVehicleBrand(spnBrand.getSelectedItem().toString());
                 ParseAdObj.setAdvertType(spnAdType.getSelectedItem().toString());
                 if (location != null) {
-                    ParseAdObj.setLocation(location.getLatitude() + "|" + location.getLongitude());
+                    // Δημιουργία του GeoPoint στο parse
+                    ParseGeoPoint pgp = new ParseGeoPoint();
+                    pgp.setLatitude(location.getLatitude());
+                    pgp.setLongitude(location.getLongitude());
+
+                    ParseAdObj.setLocation(pgp);
                 }
 
                 Bitmap bitmap = ((BitmapDrawable) imgPhoto.getDrawable()).getBitmap();
@@ -163,6 +169,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
                         if (e == null) {
                             ParseAdObj.setPhoto(file);
                             ParseAdObj.saveInBackground();
+                            Log.d("Saved Advert", ParseAdObj.toString());
                             Snackbar.make(findViewById(R.id.AC_content_layout), "Η αγγελία καταχωρήθηκε", Snackbar.LENGTH_LONG).show();
                         }
                     }
@@ -237,6 +244,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
                 //makeUseOfNewLocation(location);
                 Log.v(TAG, "Location updated to " + location.toString());
                 mapUtils.refreshLocation(location, mMap, CreateAdActivity.this.getApplicationContext());
+                CreateAdActivity.this.location = location;
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -265,6 +273,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
             if (loc != null) {
                 mapUtils.refreshLocation(loc, mMap, CreateAdActivity.this.getApplicationContext());
                 Log.v(TAG, "Got location");
+                location = loc;
             }
         }
 

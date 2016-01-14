@@ -129,8 +129,8 @@ public class AdvertListFragment extends Fragment {
                             mBundle.putString("VhlPrice", mValues.get(i).getVehiclePrice());
                             mBundle.putString("VhlAdDescription", mValues.get(i).getVehicleDescription());
                             mBundle.putByteArray("Photo", mValues.get(i).getPhoto());
-                            mBundle.putString("Latitude", mValues.get(i).getLocation().split("\\|")[0]);
-                            mBundle.putString("Longitude", mValues.get(i).getLocation().split("\\|")[1]);
+                            mBundle.putString("Latitude", String.valueOf(mValues.get(i).getLocation().getLatitude()));
+                            mBundle.putString("Longitude", String.valueOf(mValues.get(i).getLocation().getLongitude()));
                             break;
                         }
                     }

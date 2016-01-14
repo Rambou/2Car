@@ -3,11 +3,9 @@ package gr.rambou.s2car;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
-/**
- * Created by konstantinos on 8/1/2016.
- */
 @ParseClassName("Advert")
 public class Advert extends ParseObject {
 
@@ -101,12 +99,12 @@ public class Advert extends ParseObject {
         put("AdvertType", value);
     }
 
-    public String getLocation() {
-        return (getString("Location") == null) ? "0|0" : getString("Location");
+    public ParseGeoPoint getLocation() {
+        return (get("coords") == null) ? new ParseGeoPoint() : (ParseGeoPoint) get("coords");
     }
 
-    public void setLocation(String value) {
-        put("Location", value);
+    public void setLocation(ParseGeoPoint value) {
+        put("coords", value);
     }
 
     public byte[] getPhoto() {

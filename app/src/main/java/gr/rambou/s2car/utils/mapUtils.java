@@ -13,9 +13,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by konstantinos on 11/1/2016.
- */
 public class mapUtils {
 
     static public void refreshLocation(Location location, GoogleMap googleMap, Context context) {
