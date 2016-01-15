@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity
 
         //Check if user is logged in
         currentUser = ParseUser.getCurrentUser();
-        if (currentUser == null) {
+        if (currentUser == null || !isOnline()) {
             Intent i = new Intent(this, AuthenticationActivity.class);
             this.finish();
             startActivity(i);
@@ -364,6 +365,14 @@ public class MainActivity extends AppCompatActivity
 
     private void doSearch() {
 
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null &&
+                cm.getActiveNetworkInfo().isConnectedOrConnecting();
     }
 
     static class Adapter extends FragmentPagerAdapter {

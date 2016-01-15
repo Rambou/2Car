@@ -5,6 +5,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 @ParseClassName("Advert")
 public class Advert extends ParseObject {
@@ -107,6 +108,24 @@ public class Advert extends ParseObject {
         put("coords", value);
     }
 
+    public String getContact() {
+        return (getString("contact") == null) ? "" : getString("contact");
+    }
+
+    public String getPhone() {
+        return (getString("Phone") == null) ? "" : getString("Phone");
+    }
+
+    public String getMail() {
+        return (getString("Mail") == null) ? "" : getString("Mail");
+    }
+
+    public void setUser(ParseUser user) {
+        put("contact", (user == null) ? "" : user.getString("Surname") + " " + user.getString("Name"));
+        put("Phone", (user == null) ? "" : user.getString("Phone"));
+        put("Mail", (user == null) ? "" : user.getString("email"));
+    }
+
     public byte[] getPhoto() {
         try {
             return getParseFile("Photo").getData();
@@ -133,6 +152,9 @@ public class Advert extends ParseObject {
                         getVehicleCc() + "," +
                         getVehicleBrand() + "," +
                         getLocation() + "," +
-                        getAdvertType();
+                        getAdvertType() + "," +
+                        getContact() + "," +
+                        getPhone() + "," +
+                        getMail();
     }
 }

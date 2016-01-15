@@ -145,6 +145,8 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
                 ParseAdObj.setVehicleCc(Integer.valueOf(txtCc.getText().toString()));
                 ParseAdObj.setVehicleBrand(spnBrand.getSelectedItem().toString());
                 ParseAdObj.setAdvertType(spnAdType.getSelectedItem().toString());
+                ParseAdObj.setUser(currentUser);
+
                 if (location != null) {
                     // Δημιουργία του GeoPoint στο parse
                     ParseGeoPoint pgp = new ParseGeoPoint();

@@ -55,6 +55,9 @@ public class AdvertDetailActivity extends AppCompatActivity implements OnMapRead
         TextView SpnAdType = (TextView) findViewById(R.id.SpnAdType);
         TextView VhlPrice = (TextView) findViewById(R.id.VhlPrice);
         TextView VhlAdDescription = (TextView) findViewById(R.id.VhlAdDescription);
+        TextView contact = (TextView) findViewById(R.id.contact);
+        TextView mail = (TextView) findViewById(R.id.mail);
+        TextView phone = (TextView) findViewById(R.id.phone);
 
         VhlType.setText(i.getStringExtra("VhlType"));
         Brand.setText(i.getStringExtra("Brand"));
@@ -67,9 +70,10 @@ public class AdvertDetailActivity extends AppCompatActivity implements OnMapRead
         SpnAdType.setText(i.getStringExtra("SpnAdType"));
         VhlPrice.setText(i.getStringExtra("VhlPrice"));
         VhlAdDescription.setText(i.getStringExtra("VhlAdDescription"));
+        contact.setText(i.getStringExtra("contact"));
+        phone.setText(i.getStringExtra("phone"));
+        mail.setText(i.getStringExtra("email"));
 
-        String temp = i.getStringExtra("Latitude");
-        String temp2 = i.getStringExtra("Longitude");
         location.setLatitude(Double.parseDouble(i.getStringExtra("Latitude")));
         location.setLongitude(Double.parseDouble(i.getStringExtra("Longitude")));
     }
