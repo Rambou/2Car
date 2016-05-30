@@ -11,17 +11,18 @@
 Τέλος δίνεται η δυνατότητα στο χρήστη να αποθηκεύσει αγγελίες στα αγαπημένα του και στην αναζήτηση ο χρήστης μπορεί να εισάγει μια λέξη κλειδί και να επιλέξει ένα εύρος αναζήτησης σε χιλιόμετρα για την αγγελία. 
 
 # ΟΘόνες εκτέλεσης
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/1.png]
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/2.png]
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/3.png]
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/4.png]
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/5.png]
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/6.png]
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/7.png]
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/8.png]
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/9.png]
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/10.png]
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/12.png]
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/12.png]
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/1.png]
-![alt text][https://github.com/Rambou/2Car/blob/master/Screenshots/1.png]
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/1.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/2.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/3.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/4.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/5.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/6.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/7.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/8.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/9.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/10.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/12.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/13.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/14.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/15.png)
+![](https://github.com/Rambou/2Car/blob/master/Screenshots/16.png)
